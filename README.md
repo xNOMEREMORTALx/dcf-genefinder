@@ -7,7 +7,7 @@ A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm o
 
 ## What it does
 - **Self-training.** Learns a period-3 coding model from the genome itself. No reference genes or training data are used.
-- **Genetic code.** Detects the genetic code automatically (standard, TGA = Trp "code 4", and mitochondrial variants). Blind record: 38 correct of 40 unseen genomes.
+- **Genetic code.** Detects the genetic code automatically (standard, TGA = Trp "code 4", and mitochondrial variants). Blind record: 45 correct of 47 unseen genomes.
 - **Gene calls.** Calls genes, scoring each reading frame from its best start codon.
 - **Starts.** Learns each genome's own start signal: the upstream motif and start-codon preferences.
 - **Extra outputs:**
@@ -33,12 +33,13 @@ Input is a GenBank file with sequence (NCBI efetch `rettype=gbwithparts`). The a
 | GC-rich held-out (v2.26) | *Streptomyces*, *Deinococcus* | 94.9%, 93.3% | 98.6%, 97.3% | 98.1–98.2 / 98.8–98.9 |
 | 3 (v2.27) | 8 | 79.5–96.6% | 93.9–99.1% | 92.9–99.4 / 93.8–99.0 |
 | 4 (v2.28) | 7 | 81.4–95.0% | 90.9–98.6% | 93.0–99.3 / 93.1–98.9 |
+| 5 (v2.29) | 7 | 82.4–93.1% | 93.4–99.2% | 91.9–99.4 / 92.5–99.1 |
 
 **Grading.**
 - **found** = annotated CDS covered ≥ 50% by a same-strand prediction.
 - **correct** = prediction covered ≥ 50% by an annotated CDS.
 
-**Exact starts** (set 4, v2.28): 52–83%. v2.29 learns start signals and raises them on development genomes (e.g. *Bacteroides* 52 → 70%, *E. coli* 79 → 85%). Its blind test (set 5) is pre-registered in `PREREGISTERED_blind5.txt`.
+**Exact starts** (blind): set 4 (v2.28) 52–83%; set 5 (v2.29) 69–92%, higher than v2.28 in all 7 genomes (+1.7 to +11.2 points) but short of two pre-registered targets (3 of 5 predictions passed; see `PREREGISTERED_blind5.txt`). Prodigal: 84.5–93.5% on set 5.
 
 ## Honest limits
 - **Sensitivity.** The tool finds fewer genes than Prodigal (gap 3–14 points). The missed genes are mostly short (< 300 nt) with weak coding rhythm, and a rhythm-only rescue was tested and rejected.
