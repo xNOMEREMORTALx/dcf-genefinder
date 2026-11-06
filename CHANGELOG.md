@@ -1,0 +1,8 @@
+# Changelog
+- **v2.29 (L3001):** learns each genome's start signal (upstream log-odds −20..−1 plus start-codon preferences) in two passes. Development exact starts: *Bacteroides* 52.4 → 70.2%, *E. coli* 79.4 → 85.4%, *Vibrio* 75.5 → 83.1%. 14-genome regression clean.
+- **v2.28 (L2993):** the start search extends back to the previous in-frame stop. **Fixes a regression in v2.26–v2.27,** where starts were searched only downstream of the best-start trim (*E. coli* exact starts 81.4% in v2.24 → 63.0% → 79.4%). The 50%-overlap grader could not see this, so exact start is now reported by `dcf_grade.py`.
+- **v2.27 (L2973):** best-start scoring for every genome, ORF minimum 240 nt. **Fixes a regression in v2.26:** code detection is restored to v2.25 (*Hodgkinia* had been miscalled as standard code).
+- **v2.26 (L2969):** GC > 0.55 genomes are scored from the best start codon, minimum 180 nt. Held-out *Streptomyces* found 74.5 → 94.9%.
+- **v2.25 (L2957):** tiny AT-rich genomes (< 300 kb, GC < 0.25) use the length ratio at a 1.45 cut for TGA = Trp.
+- **v2.24 (L2921):** dispersed-repeat flag. **Fixes a strand bug** in the v2.22–v2.23 codon-phase strength line.
+- **Labelling correction (L2973):** *M. genitalium* NC_000908 and *Deinococcus* NC_001263 had been used in development and were wrongly counted as unseen in blind set 2. Every new genome is now checked against `seen_accessions.txt`.

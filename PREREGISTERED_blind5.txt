@@ -1,0 +1,15 @@
+PRE-REGISTRATION L3001 blind set 5 (learned start signal). Gary NOMEREMORTAL Mason, DCF, 6 Nov 2026. Frozen BEFORE the genomes are downloaded.
+Tool under test: gene finder v2.29 (SHA-256 7dbe63dd...e27f): after the v2.28 start pick, learn the genome's own start signal (log-odds of bases
+-20..-1 and of the start codon, chosen starts of above-median genes vs the alternative in-frame start codons), two passes, then re-pick starts.
+Development (seen genomes): exact starts Bacteroides 52.4 -> 70.2, E. coli 79.4 -> 85.4, Vibrio 75.5 -> 83.1, M. tuberculosis 64.1 -> 67.9,
+Pyrococcus 81.5 -> 84.2, S. pneumoniae 82.3 -> 85.5; 14-genome regression: all codes correct, no start, found or precision loss > 0.2.
+Compared with v2.28 on the same files; grader dcf_grade.py (L2997).
+Genomes (none in seen_accessions.txt): 1 NC_004461 Staphylococcus epidermidis; 2 NC_002950 Porphyromonas gingivalis (Bacteroidetes);
+3 NC_008255 Cytophaga hutchinsonii (Bacteroidetes); 4 NC_002754 Sulfolobus solfataricus (crenarchaeon, many leaderless genes);
+5 NC_004567 Lactobacillus plantarum; 6 NC_002935 Corynebacterium diphtheriae; 7 NC_009089 Clostridioides difficile; 8 NC_006570 Francisella tularensis.
+Missing files are dropped; "k of 8" thresholds become "all but (8-k)".
+E1 Genetic code 11 called in all.
+E2 v2.29 exact starts >= v2.28 in every genome, and at least 3 points higher in >= 6 of 8.
+E3 Non-Shine-Dalgarno group (2, 3, 4): mean exact-start gain >= 8 points.
+E4 No loss: v2.29 found and correct each >= v2.28 - 0.5 points in every genome.
+E5 v2.29 exact starts >= 70% in >= 6 of 8.
