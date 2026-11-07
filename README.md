@@ -22,6 +22,7 @@ A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm o
 ```
 python3 dcf_genefinder_mobile.py genome.gb --table auto --out pred.gff3
 python3 dcf_grade.py genome.gb pred.gff3      # found / correct / exact start against the file's own annotation
+python3 dcf_promoters.py genome.gb pred.gff3  # learned -35/-10 promoter boxes with a self-check (clear in low-GC Firmicutes)
 ```
 Input is a GenBank file with sequence (NCBI efetch `rettype=gbwithparts`). The annotation is used only for grading, never for training.
 

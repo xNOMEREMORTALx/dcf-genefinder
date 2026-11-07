@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "DCF gene finder: a label-free period-3 gene finder with genetic-code detection"
+authors:
+  - family-names: Mason
+    given-names: "Gary NOMEREMORTAL"
+version: "2.30"
+date-released: 2026-11-06
+license: MIT
+repository-code: "https://github.com/xNOMEREMORTALx/dcf-genefinder"
