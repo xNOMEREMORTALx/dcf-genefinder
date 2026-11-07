@@ -1,4 +1,5 @@
 # Changelog
+- **v2.30 (L3009/L3013):** learned start window widened from 20 to 30 nt, reaching archaeal promoter elements of leaderless genes (*Sulfolobus* 72.3 → 75.7%). Blind *S. epidermidis*: exact starts 91.2% (v2.29) → 92.0%, with no loss. Regression: mixed (−1.4 to +2.4 points in exact starts); codes, found and precision unchanged.
 - **v2.29 (L3001):** learns each genome's start signal (upstream log-odds −20..−1 plus start-codon preferences) in two passes. Development exact starts: *Bacteroides* 52.4 → 70.2%, *E. coli* 79.4 → 85.4%, *Vibrio* 75.5 → 83.1%. 14-genome regression clean.
 - **v2.28 (L2993):** the start search extends back to the previous in-frame stop. **Fixes a regression in v2.26–v2.27,** where starts were searched only downstream of the best-start trim (*E. coli* exact starts 81.4% in v2.24 → 63.0% → 79.4%). The 50%-overlap grader could not see this, so exact start is now reported by `dcf_grade.py`.
 - **v2.27 (L2973):** best-start scoring for every genome, ORF minimum 240 nt. **Fixes a regression in v2.26:** code detection is restored to v2.25 (*Hodgkinia* had been miscalled as standard code).

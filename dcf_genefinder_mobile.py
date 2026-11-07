@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""dcf_genefinder_mobile.py v2.29 — DCF label-free spectral gene finder, NO Biopython needed (works in Pydroid 3 on Android).
+"""dcf_genefinder_mobile.py v2.30 — DCF label-free spectral gene finder, NO Biopython needed (works in Pydroid 3 on Android).
 Gary NOMEREMORTAL Mason, Digital Cosmos Framework (L2723; algorithm = dcf_genefinder v2: period-3 self-training,
 shadow removal, GC frame-plot seed for GC-rich genomes, anti-Shine-Dalgarno starts from the genome's own 16S rRNA).
 Needs only numpy (Pydroid: Pip menu -> install numpy).
@@ -321,7 +321,7 @@ def _run(path,table='11',out='pred.gff3',mask_rrna=True):
     if not mito and preds:   # L3001 (v2.29): on by default
         # L3001 (G11c/d): learn the genome's own start signal: log-odds of upstream bases (positions -20..-1) and of the start codon,
         # chosen starts of confident genes vs the alternative in-frame start codons of the same ORFs; then re-pick every start.
-        W=20; MW=1.0; NP=2; SDW=2.0
+        W=30; MW=1.0; NP=2; SDW=2.0   # L3009 (v2.30): window 30 nt reaches archaeal promoter elements of leaderless genes
         B='ACGT'
         def win(S,i): return S[i-W:i] if i>=W else None
         gl={}
