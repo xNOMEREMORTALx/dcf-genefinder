@@ -1,5 +1,5 @@
 # Note G: a label-free, phone-sized gene finder from the period-3 rhythm, with genetic-code detection and honest blind testing
-### Draft v0.9 · Gary NOMEREMORTAL Mason · Digital Cosmos Framework · 6 November 2026
+### Draft v1.0 · Gary NOMEREMORTAL Mason · Digital Cosmos Framework · 7 November 2026
 
 **Status.**
 - Tool: `dcf_genefinder_mobile.py` **v2.30** (SHA-256 6b26c032…5022), numpy only; it runs in Pydroid 3 on Android.
@@ -34,7 +34,7 @@
 | AGR fragmentation (L2728) | Are AGA/AGG stops (mitochondria)? | Top-gene length ratio: stops 0.86–0.97, sense 0.31–0.40 |
 | Reliability self-check (L2818) | Is the model failing? | Median predicted gene < 400 nt raises a warning |
 
-**Blind record: 54 correct of 56 genomes** (L2953–L3057, after the L2973 correction).
+**Blind record: 62 correct of 64 genomes** (L2953–L3081, after the L2973 correction).
 - **The two errors:** *Nasuia* (L2953, flagged UNCERTAIN; now fixed by v2.25, post hoc) and *Hodgkinia* (an early round; fixed in v2.20).
 - **The read-through test is unreliable in AT-rich genomes.** In *Sulcia*, *Nasuia* and *Buchnera* it was wrong each time it disagreed with the length ratio, and the ratio was right.
 
@@ -167,10 +167,31 @@
 | Helical rhythm | median 11.05 bp; 26/31 above null (L2913). It is **not** explained by GC, size or lifestyle (L2953, symbiont hypothesis refuted) |
 | Dispersed-repeat flag | *B. pertussis* IS481 157/160 caught (L2921) |
 
+## 5b. Read-through detection: pyrrolysine and selenocysteine (`dcf_pylflag.py`, L3069–L3089)
+**Method.** Two consecutive same-strand predictions joined **in frame across a single stop codon** (each part ≥ 150 nt, no other in-frame stop between them) are listed as read-through candidates:
+- **TAG:** pyrrolysine?
+- **TGA:** selenocysteine?
+
+**Gene-level results:**
+- **Pyrrolysine.** In 5 pyrrolysine users, all **27 of 27** methylamine methyltransferases carrying an in-frame TAG are caught (*M. acetivorans* 7, *M. barkeri* 6, *M. mazei* 7, *M. burtonii* 6, *D. hafniense* 1).
+  - The TAG sits at the same codon in each family: **MtmB codon 202, MttB codon 334, MtbB codon 356**. I recall these as the known pyrrolysine positions but did not check a source this round.
+  - The automated RefSeq annotation marks **all 27 as pseudogenes** ("internal stop").
+- **Selenocysteine.** *E. coli* *fdhF*, *fdnG* and *fdoG* are caught as TGA joins matching the annotated coordinates exactly (3 of 3).
+
+**The genome-level score is only a hint.** The TAG excess over the genome's own TAA/TGA joins:
+- flags pyrrolysine methanogens (*M. mazei* 5.06, *M. burtonii* 3.72, *M. barkeri* 2.06, *M. acetivorans* 2.90);
+- misses *D. hafniense* (1.28; many ordinary TAG stops);
+- non-users sit around 1.35, with *S. pneumoniae* at 2.04 (TAG pseudogenes).
+
+Blind set 7: 3 of 4 predictions passed.
+
+**Pending.** Blind set 8 (four methylamine methanogens) tests the gene-level list.
+
 ## 6. Corrections log
 1. **v2.22–v2.23:** a strand-coordinate bug in the codon-phase strength line. Fixed in v2.24; gene calls were unaffected.
 2. **L2965:** *M. genitalium* and *Deinococcus* were wrongly labelled unseen. Their blind status was withdrawn (L2973), and a list of every genome used now gates new requests.
 3. **v2.26:** best-start scoring also altered code detection, and *Hodgkinia* (code 4) was called standard. The L2969 side-effect check covered only genomes with GC ≤ 0.55. In **v2.27**, code detection is restored to v2.25, and a 12-genome code check (codes 2, 4, 11) now runs before release.
+5. **Reader (L3069):** `dcf_grade.py` and `dcf_promoters.py` dropped IUPAC ambiguity letters, shifting coordinates in some genomes. Grades were unaffected (coordinates only); the promoter verdicts were re-checked and unchanged. Fixed.
 4. **v2.26–v2.27:** start selection searched only downstream of the best-start trim, and exact starts fell (*E. coli* 81.4% → 63.0%). The 50%-overlap grader could not see this. **v2.28** fixed it, and exact start is now reported by `dcf_grade.py` for every release.
 
 ## 7. Honest limits
@@ -183,9 +204,10 @@
 
 ## Summary
 - **What it is.** A gene finder that teaches itself each genome's coding rhythm, needs only numpy, and runs on a phone.
-- **Genetic code.** It works out each genome's genetic code by itself, correct in 54 of 56 blind genomes.
+- **Genetic code.** It works out each genome's genetic code by itself, correct in 62 of 64 blind genomes.
 - **Promoters.** A companion script tells whether a genome's promoters can be read from sequence alone, correct in 22 of 22 genomes, and learns them where they can.
-- **Blind accuracy.** On 45 genomes never seen during development, its calls are right 91–99.8% of the time, about as often as the standard tool, Prodigal.
+- **Rare amino acids.** A second script lists genes that read through a stop codon. It caught all 27 pyrrolysine genes in five microbes, which the official annotation had wrongly marked as broken, and *E. coli*'s three selenocysteine genes.
+- **Blind accuracy.** On 53 genomes never seen during development, its calls are right 91–99.8% of the time, about as often as the standard tool, Prodigal.
 - **Gene starts.** It now learns where each genome's genes start and gets 52–92% of starts exactly right, against Prodigal's 77–93.5%.
 - **Sensitivity.** It finds fewer genes than Prodigal, mainly the very short ones. Its biggest earlier weakness, GC-rich genomes, was traced to one cause and fixed: held-out *Streptomyces* rose from 74.5% to 94.9% of genes found.
 - **Honesty.** Every error found along the way is logged and corrected in §6.
