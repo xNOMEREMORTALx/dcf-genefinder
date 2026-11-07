@@ -34,7 +34,7 @@
 | AGR fragmentation (L2728) | Are AGA/AGG stops (mitochondria)? | Top-gene length ratio: stops 0.86–0.97, sense 0.31–0.40 |
 | Reliability self-check (L2818) | Is the model failing? | Median predicted gene < 400 nt raises a warning |
 
-**Blind record: 62 correct of 64 genomes** (L2953–L3081, after the L2973 correction).
+**Blind record: 66 correct of 68 genomes** (L2953–L3093, after the L2973 correction).
 - **The two errors:** *Nasuia* (L2953, flagged UNCERTAIN; now fixed by v2.25, post hoc) and *Hodgkinia* (an early round; fixed in v2.20).
 - **The read-through test is unreliable in AT-rich genomes.** In *Sulcia*, *Nasuia* and *Buchnera* it was wrong each time it disagreed with the length ratio, and the ratio was right.
 
@@ -185,7 +185,7 @@
 
 Blind set 7: 3 of 4 predictions passed.
 
-**Pending.** Blind set 8 (four methylamine methanogens) tests the gene-level list.
+**Blind set 8 (L3093, pre-registered, 3 of 3 passed).** In *Methanohalophilus*, *Methanolobus*, *Methanosalsum* and *Methanomethylovorans*, **21 of 21** pyrrolysine methyltransferases are listed (9–20 TAG candidates per genome). Their TAG codons are again conserved (MtbB 355/356, MttB 334/324, MtmB 202 in 7 of 10). The genome-level excess would have flagged only 1 of the 4.
 
 ## 6. Corrections log
 1. **v2.22–v2.23:** a strand-coordinate bug in the codon-phase strength line. Fixed in v2.24; gene calls were unaffected.
@@ -204,10 +204,10 @@ Blind set 7: 3 of 4 predictions passed.
 
 ## Summary
 - **What it is.** A gene finder that teaches itself each genome's coding rhythm, needs only numpy, and runs on a phone.
-- **Genetic code.** It works out each genome's genetic code by itself, correct in 62 of 64 blind genomes.
+- **Genetic code.** It works out each genome's genetic code by itself, correct in 66 of 68 blind genomes.
 - **Promoters.** A companion script tells whether a genome's promoters can be read from sequence alone, correct in 22 of 22 genomes, and learns them where they can.
-- **Rare amino acids.** A second script lists genes that read through a stop codon. It caught all 27 pyrrolysine genes in five microbes, which the official annotation had wrongly marked as broken, and *E. coli*'s three selenocysteine genes.
-- **Blind accuracy.** On 53 genomes never seen during development, its calls are right 91–99.8% of the time, about as often as the standard tool, Prodigal.
+- **Rare amino acids.** A second script lists genes that read through a stop codon. It caught all 48 pyrrolysine genes in nine microbes (21 of them in a blind test), which the official annotation had wrongly marked as broken, and *E. coli*'s three selenocysteine genes.
+- **Blind accuracy.** On 57 genomes never seen during development, its calls are right 91–99.8% of the time, about as often as the standard tool, Prodigal.
 - **Gene starts.** It now learns where each genome's genes start and gets 52–92% of starts exactly right, against Prodigal's 77–93.5%.
 - **Sensitivity.** It finds fewer genes than Prodigal, mainly the very short ones. Its biggest earlier weakness, GC-rich genomes, was traced to one cause and fixed: held-out *Streptomyces* rose from 74.5% to 94.9% of genes found.
 - **Honesty.** Every error found along the way is logged and corrected in §6.
