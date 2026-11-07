@@ -7,7 +7,7 @@ A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm o
 
 ## What it does
 - **Self-training.** Learns a period-3 coding model from the genome itself. No reference genes or training data are used.
-- **Genetic code.** Detects the genetic code automatically (standard, TGA = Trp "code 4", and mitochondrial variants). Blind record: 54 correct of 56 unseen genomes.
+- **Genetic code.** Detects the genetic code automatically (standard, TGA = Trp "code 4", and mitochondrial variants). Blind record: 62 correct of 64 unseen genomes.
 - **Gene calls.** Calls genes, scoring each reading frame from its best start codon.
 - **Starts.** Learns each genome's own start signal: the upstream motif and start-codon preferences.
 - **Extra outputs:**
