@@ -7,7 +7,7 @@ A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm o
 
 ## What it does
 - **Self-training.** Learns a period-3 coding model from the genome itself. No reference genes or training data are used.
-- **Genetic code.** Detects the genetic code automatically (standard, TGA = Trp "code 4", and mitochondrial variants). Blind record: 46 correct of 48 unseen genomes.
+- **Genetic code.** Detects the genetic code automatically (standard, TGA = Trp "code 4", and mitochondrial variants). Blind record: 53 correct of 55 unseen genomes.
 - **Gene calls.** Calls genes, scoring each reading frame from its best start codon.
 - **Starts.** Learns each genome's own start signal: the upstream motif and start-codon preferences.
 - **Extra outputs:**
@@ -24,6 +24,9 @@ python3 dcf_genefinder_mobile.py genome.gb --table auto --out pred.gff3
 python3 dcf_grade.py genome.gb pred.gff3      # found / correct / exact start against the file's own annotation
 python3 dcf_promoters.py genome.gb pred.gff3  # learned -35/-10 promoter boxes with a self-check (clear in low-GC Firmicutes)
 ```
+Promoter self-check, blind set 6 (pre-registered): Firmicutes 1.59–3.78 (3/3 clear), proteobacteria 0.89–1.22 (0/4 clear); exact starts 74.5–94.1%.
+```
+```
 Input is a GenBank file with sequence (NCBI efetch `rettype=gbwithparts`). The annotation is used only for grading, never for training.
 
 ## Blind accuracy (pre-registered; predictions frozen before the files were opened)
@@ -35,6 +38,7 @@ Input is a GenBank file with sequence (NCBI efetch `rettype=gbwithparts`). The a
 | 3 (v2.27) | 8 | 79.5–96.6% | 93.9–99.1% | 92.9–99.4 / 93.8–99.0 |
 | 4 (v2.28) | 7 | 81.4–95.0% | 90.9–98.6% | 93.0–99.3 / 93.1–98.9 |
 | 5 (v2.29) | 7 | 82.4–93.1% | 93.4–99.2% | 91.9–99.4 / 92.5–99.1 |
+| 6 (v2.30) | 7 | 87.8–94.5% | 95.2–99.5% | not run |
 
 **Grading.**
 - **found** = annotated CDS covered ≥ 50% by a same-strand prediction.
