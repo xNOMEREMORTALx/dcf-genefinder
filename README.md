@@ -55,3 +55,6 @@ Every error found so far is logged in `CHANGELOG.md`, including:
 
 ## Citation
 Mason, G. N. *DCF gene finder: a label-free period-3 gene finder with genetic-code detection*, v2.29 (2026).
+
+## License
+MIT. See `LICENSE`.
