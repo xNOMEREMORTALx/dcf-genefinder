@@ -1,4 +1,4 @@
-"""dcf_pylflag.py (DCF, L3073) - label-free stop-codon read-through flag, run after dcf_genefinder_mobile.py.
+"""dcf_pylflag.py (DCF, L3073; gene list L3089) - label-free stop-codon read-through flag, run after dcf_genefinder_mobile.py.
 Finds consecutive same-strand predicted genes joined in frame across a single stop codon (TAA/TAG/TGA) and reports the TAG excess over the
 genome's own TAA/TGA joins (a pyrrolysine / amber-read-through signature). Usage: python3 dcf_pylflag.py genome.gb predictions.gff3
 Author: Gary NOMEREMORTAL Mason. License: MIT."""
@@ -38,7 +38,15 @@ def main(seqpath,gffpath):
     exp=(n['TAA']+n['TGA'])*use['TAG']/max(use['TAA']+use['TGA'],1)
     ex=n['TAG']/exp if exp>0 else float('inf') if n['TAG'] else 0.0
     print("read-through joins: TAA %d, TAG %d, TGA %d; stop use TAA %d TAG %d TGA %d; TAG excess %.2f"%(n['TAA'],n['TAG'],n['TGA'],use['TAA'],use['TAG'],use['TGA'],ex))
-    if ex>=2: print("  POSSIBLE PYRROLYSINE / amber read-through: TAG joins are %.1fx the genome's TAA/TGA rate"%ex)
-    return J,ex,len(seq)
+    if ex>=2: print("  genome hint: TAG joins are %.1fx the genome's TAA/TGA rate (possible pyrrolysine / amber read-through)"%ex)
+    print("  (genome-level score is a weak hint only; the gene list below is the main output, L3085)")
+    L=len(seq)
+    for s,a1,b1,a2,b2,st in J:
+        if st=='TAA': continue
+        x,y=(a1+1,b2) if s=='+' else (L-b2+1,L-a1)
+        stop_at=b1-2 if s=='+' else None
+        print("  candidate %s read-through: %d..%d (%s)  parts %d + %d nt, gap %d nt  [%s]"%(st,x,y,s,b1-a1,b2-a2,a2-b1,
+              "pyrrolysine?" if st=='TAG' else "selenocysteine?"))
+    return J,ex,L
 if __name__=='__main__':
     main(sys.argv[1],sys.argv[2])
