@@ -9,7 +9,7 @@ comp = str.maketrans('ACGT', 'TGCA')
 def rc(s): return s.translate(comp)[::-1]
 def read_seq(path):
     t = open(path).read()
-    if '\nORIGIN' in t: return ''.join(re.findall(r'[acgtn]+', t.split('\nORIGIN')[1])).upper()
+    if '\nORIGIN' in t: return re.sub(r'[^ACGT]', 'N', ''.join(re.findall(r'[A-Za-z]+', t.split('\nORIGIN')[1].split('\n//')[0])).upper())  # L3069 fix: ambiguity codes kept as N
     return ''.join(l.strip() for l in t.splitlines() if not l.startswith('>')).upper()
 def read_gff(path):
     G = []

@@ -9,7 +9,7 @@ import numpy as np
 
 def read_gb(path):
     txt = open(path).read()
-    seq = ''.join(re.findall(r'[acgtn]+', txt.split('\nORIGIN')[1])).upper() if '\nORIGIN' in txt else ''
+    seq = re.sub(r'[^ACGT]', 'N', ''.join(re.findall(r'[A-Za-z]+', txt.split('\nORIGIN')[1].split('\n//')[0])).upper()) if '\nORIGIN' in txt else ''  # L3069: keep ambiguity codes as N so coordinates stay aligned
     cds = []
     for m in re.finditer(r'\n     CDS             (complement\()?<?(\d+)\.\.>?(\d+)\)?\n', txt):
         a, b = int(m.group(2)), int(m.group(3)); cds.append((a, b, bool(m.group(1))))
