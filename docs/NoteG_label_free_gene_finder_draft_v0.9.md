@@ -1,5 +1,5 @@
 # Note G: a label-free, phone-sized gene finder from the period-3 rhythm, with genetic-code detection and honest blind testing
-### Draft v0.8 · Gary NOMEREMORTAL Mason · Digital Cosmos Framework · 6 November 2026
+### Draft v0.9 · Gary NOMEREMORTAL Mason · Digital Cosmos Framework · 6 November 2026
 
 **Status.**
 - Tool: `dcf_genefinder_mobile.py` **v2.30** (SHA-256 6b26c032…5022), numpy only; it runs in Pydroid 3 on Android.
@@ -34,7 +34,7 @@
 | AGR fragmentation (L2728) | Are AGA/AGG stops (mitochondria)? | Top-gene length ratio: stops 0.86–0.97, sense 0.31–0.40 |
 | Reliability self-check (L2818) | Is the model failing? | Median predicted gene < 400 nt raises a warning |
 
-**Blind record: 46 correct of 48 genomes** (L2953–L3013, after the L2973 correction).
+**Blind record: 54 correct of 56 genomes** (L2953–L3057, after the L2973 correction).
 - **The two errors:** *Nasuia* (L2953, flagged UNCERTAIN; now fixed by v2.25, post hoc) and *Hodgkinia* (an early round; fixed in v2.20).
 - **The read-through test is unreliable in AT-rich genomes.** In *Sulcia*, *Nasuia* and *Buchnera* it was wrong each time it disagreed with the length ratio, and the ratio was right.
 
@@ -130,6 +130,23 @@
 - The mean gain in the non-SD group was 7.6, against a target of 8.
 - The learned signal helps most where the fixed 16S anchor was wrong for the genome. It helps little where there is no upstream signal at all (leaderless genes).
 
+### 3h. Set 6 (L3053/L3057, v2.30) and the promoter self-check
+| genome | found | correct | exact start | promoter E17 |
+|---|---|---|---|---|
+| *S. pyogenes* | 88.8 | 98.9 | 87.0 | **3.78** clear |
+| *E. faecalis* V583 | 88.4 | 95.9 | 78.1 | **2.53** clear |
+| *C. perfringens* | 94.5 | 99.5 | 94.1 | **2.17** clear |
+| *B. cereus* | 87.8 | 98.3 | 86.8 | **1.59** clear |
+| *Xanthomonas* | 90.1 | 95.2 | 74.5 | 1.22 |
+| *Legionella* | 93.3 | 97.6 | 80.0 | 1.13 |
+| *Acinetobacter* | 93.2 | 97.9 | 82.9 | 1.13 |
+| *Shewanella* | 91.3 | 96.2 | 81.6 | 0.89 |
+
+**Promoter self-check (`dcf_promoters.py`).**
+- **What it does.** It learns −35/−10 boxes from the 250 nt upstream of predicted operon-first genes, and reports a clear signal when the 17-nt spacer share is above 1.5× its shuffled control.
+- **Record: 22 of 22 genomes sorted correctly** (14 development, 8 blind). Low-GC Firmicutes are clear (1.59–3.78); proteobacteria, actinobacteria, Bacteroidetes and archaea are not (0.76–1.22).
+- **In clear genomes,** strong sites sit before likely operon starts at 6–13× the shuffled rate.
+
 **Overall blind picture.**
 - **Precision** is 91–99.8%, equal to or above Prodigal's in about half of the genomes.
 - **Sensitivity** is now 89–97% in GC-rich genomes (after v2.26) and 79–96% elsewhere, against Prodigal's 93–99.6%.
@@ -166,8 +183,9 @@
 
 ## Summary
 - **What it is.** A gene finder that teaches itself each genome's coding rhythm, needs only numpy, and runs on a phone.
-- **Genetic code.** It works out each genome's genetic code by itself, correct in 46 of 48 blind genomes.
-- **Blind accuracy.** On 37 genomes never seen during development, its calls are right 91–99.8% of the time, about as often as the standard tool, Prodigal.
+- **Genetic code.** It works out each genome's genetic code by itself, correct in 54 of 56 blind genomes.
+- **Promoters.** A companion script tells whether a genome's promoters can be read from sequence alone, correct in 22 of 22 genomes, and learns them where they can.
+- **Blind accuracy.** On 45 genomes never seen during development, its calls are right 91–99.8% of the time, about as often as the standard tool, Prodigal.
 - **Gene starts.** It now learns where each genome's genes start and gets 52–92% of starts exactly right, against Prodigal's 77–93.5%.
 - **Sensitivity.** It finds fewer genes than Prodigal, mainly the very short ones. Its biggest earlier weakness, GC-rich genomes, was traced to one cause and fixed: held-out *Streptomyces* rose from 74.5% to 94.9% of genes found.
 - **Honesty.** Every error found along the way is logged and corrected in §6.
