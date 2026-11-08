@@ -40,13 +40,13 @@ Input is a GenBank file with sequence (NCBI efetch `rettype=gbwithparts`). The a
 | 3 (v2.27) | 8 | 79.5–96.6% | 93.9–99.1% | 92.9–99.4 / 93.8–99.0 |
 | 4 (v2.28) | 7 | 81.4–95.0% | 90.9–98.6% | 93.0–99.3 / 93.1–98.9 |
 | 5 (v2.29) | 7 | 82.4–93.1% | 93.4–99.2% | 91.9–99.4 / 92.5–99.1 |
-| 6 (v2.30) | 7 | 87.8–94.5% | 95.2–99.5% | not run |
+| 6 (v2.31) | 7 | 87.8–94.5% | 95.2–99.5% | not run |
 
 **Grading.**
 - **found** = annotated CDS covered ≥ 50% by a same-strand prediction.
 - **correct** = prediction covered ≥ 50% by an annotated CDS.
 
-**Exact starts** (blind): set 4 (v2.28) 52–83%; set 5 (v2.29) 69–92%, higher than v2.28 in all 7 genomes (+1.7 to +11.2 points) but short of two pre-registered targets (3 of 5 predictions passed; see `PREREGISTERED_blind5.txt`). Prodigal: 84.5–93.5% on set 5. *S. epidermidis* RP62A (blind, v2.30): found 89.1%, correct 99.1%, exact start 92.0%.
+**Exact starts** (blind): set 4 (v2.28) 52–83%; set 5 (v2.29) 69–92%, higher than v2.28 in all 7 genomes (+1.7 to +11.2 points) but short of two pre-registered targets (3 of 5 predictions passed; see `PREREGISTERED_blind5.txt`). Prodigal: 84.5–93.5% on set 5. *S. epidermidis* RP62A (blind, v2.31): found 89.1%, correct 99.1%, exact start 92.0%.
 
 ## Honest limits
 - **Sensitivity.** The tool finds fewer genes than Prodigal (gap 3–14 points). The missed genes are mostly short (< 300 nt) with weak coding rhythm, and a rhythm-only rescue was tested and rejected.

@@ -12,3 +12,8 @@
 - **v2.25 (L2957):** tiny AT-rich genomes (< 300 kb, GC < 0.25) use the length ratio at a 1.45 cut for TGA = Trp.
 - **v2.24 (L2921):** dispersed-repeat flag. **Fixes a strand bug** in the v2.22–v2.23 codon-phase strength line.
 - **Labelling correction (L2973):** *M. genitalium* NC_000908 and *Deinococcus* NC_001263 had been used in development and were wrongly counted as unseen in blind set 2. Every new genome is now checked against `seen_accessions.txt`.
+## v2.31 (L3149, 8 Nov 2026)
+- Genetic-code detection: genome-size prior. When the read-through test says table 11 and the ORF-length ratio says table 4, the ratio
+  no longer overrides for genomes > 2.5 Mb (known table-4 bacteria are <= ~2.2 Mb). Fixes the blind miss on Gluconobacter oxydans (L3145).
+- Blind test pre-registered (PREREGISTERED_L3149, dcf-math), pending.
+

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""dcf_genefinder_mobile.py v2.30 — DCF label-free spectral gene finder, NO Biopython needed (works in Pydroid 3 on Android).
+"""dcf_genefinder_mobile.py v2.31 — DCF label-free spectral gene finder, NO Biopython needed (works in Pydroid 3 on Android).
 Gary NOMEREMORTAL Mason, Digital Cosmos Framework (L2723; algorithm = dcf_genefinder v2: period-3 self-training,
 shadow removal, GC frame-plot seed for GC-rich genomes, anti-Shine-Dalgarno starts from the genome's own 16S rRNA).
 Needs only numpy (Pydroid: Pip menu -> install numpy).
@@ -278,6 +278,12 @@ def _run(path,table='11',out='pred.gff3',mask_rrna=True):
                 _rt='4' if _r>1.45 else '11'
                 print("  tiny AT-rich genome: length ratio %.2f overrides the read-through call (table %s -> %s; L2957 rule)"%(_r,table,_rt))
                 table=_rt; LAST['disagree']=True
+            elif _rt=='4' and table=='11' and L>2500000:
+                # L3149 (v2.31): a genome-size prior. Known table-4 bacteria (Mycoplasma, Spiroplasma, Hodgkinia, ...) have genomes
+                # <= ~2.2 Mb (Spiroplasma 0.7-2.2 Mb); development table-4 calls were all <= 1.21 Mb. Above 2.5 Mb the length ratio may not
+                # override a read-through 'stop' call (blind miss L3145: Gluconobacter, 2.70 Mb, ratio 1.69).
+                print("  DISAGREEMENT: length ratio %.2f says table 4, but the genome is %.2f Mb (> 2.5 Mb, larger than any known table-4 bacterium); keeping table 11 (L3149 rule)"%(_r,L/1e6))
+                LAST['disagree']=True
             elif _r<1.4 or _r>1.6:
                 print("  DISAGREEMENT: read-through says table %s, length ratio %.2f says table %s; using the length ratio (L2827: 29/29 on development)"%(table,_r,_rt))
                 table=_rt; LAST['disagree']=True
