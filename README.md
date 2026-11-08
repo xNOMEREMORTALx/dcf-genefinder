@@ -23,7 +23,8 @@ A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm o
 python3 dcf_genefinder_mobile.py genome.gb --table auto --out pred.gff3
 python3 dcf_grade.py genome.gb pred.gff3      # found / correct / exact start against the file's own annotation
 python3 dcf_promoters.py genome.gb pred.gff3  # learned -35/-10 promoter boxes with a self-check (clear in low-GC Firmicutes)
-python3 dcf_pylflag.py genome.gb pred.gff3    # TAG read-through (pyrrolysine) flag: catches all 7 known Methanosarcina pyrrolysine genes
+python3 dcf_pylflag.py genome.gb pred.gff3    # TAG/TGA read-through candidates (pyrrolysine 48/48 genes; selenocysteine E. coli 3/3)
+python3 dcf_metals.py genome.gb pred.gff3     # metal-use profile: Fe-S (CxxC) density and C2H2 zinc fingers
 ```
 Promoter self-check, blind set 6 (pre-registered): Firmicutes 1.59–3.78 (3/3 clear), proteobacteria 0.89–1.22 (0/4 clear); exact starts 74.5–94.1%.
 ```
