@@ -18,21 +18,24 @@ Bordetella bronchiseptica
 Bordetella pertussis
 Bradyrhizobium diazoefficiens (japonicum) USDA 110
 Buchnera aphidicola
+Caldanaerobacter (Thermoanaerobacter) tengcongensis
+Caldicellulosiruptor saccharolyticus
 Carboxydothermus hydrogenoformans
 Carsonella ruddii
 Caulobacter crescentus
 Chlamydia trachomatis
-Chlorobaculum tepidum (blind_16)
-Chlorobium chlorochromatii (blind_16)
+Chlorobaculum tepidum
+Chlorobium chlorochromatii
 Clostridioides difficile
 Clostridium acetobutylicum
+Clostridium beijerinckii
 Clostridium kluyveri
 Clostridium ljungdahlii
 Clostridium perfringens
 Clostridium tetani
 Corynebacterium diphtheriae
 Corynebacterium glutamicum
-Cupriavidus necator (Ralstonia eutropha) H16 (chr 1; pHG1 in blind_16)
+Cupriavidus necator (Ralstonia eutropha) H16 (chr 1 and pHG1)
 Cytophaga hutchinsonii
 Dehalococcoides mccartyi
 Deinococcus radiodurans
@@ -52,12 +55,13 @@ Gluconacetobacter diazotrophicus
 Gluconobacter oxydans
 Granulibacter bethesdensis
 Halobacterium salinarum
-Halothiobacillus neapolitanus (blind_16)
+Halothiobacillus neapolitanus
 Hodgkinia cicadicola
 Hydrogenobacter thermophilus
 Klebsiella pneumoniae
 Lachnoclostridium (Clostridium) phytofermentans
 Lactobacillus acidophilus
+Lactobacillus delbrueckii bulgaricus
 Lactobacillus plantarum (Note G set 5; accession was missing from seen_accessions.txt)
 Lactococcus lactis
 Legionella pneumophila
@@ -84,10 +88,12 @@ Mycoplasma mobile
 Mycoplasma pneumoniae
 Nasuia deltocephalinicola
 Nitrosomonas europaea
-Nitrosospira multiformis (blind_16)
+Nitrosospira multiformis
 Nocardia farcinica
 Nocardioides
+Oenococcus oeni
 Oleidesulfovibrio (Desulfovibrio) alaskensis
+Pediococcus pentosaceus
 Pelagibacter ubique
 Pelotomaculum thermopropionicum
 Porphyromonas gingivalis
@@ -99,6 +105,7 @@ Pyrococcus
 Rhodobacter sphaeroides
 Rhodococcus
 Rhodopseudomonas palustris
+Ruminococcus albus 7 (Hominimerdicola alba)
 Serratia proteamaculans
 Shewanella
 Sinorhizobium meliloti
@@ -107,6 +114,7 @@ Staphylococcus epidermidis
 Streptococcus mutans
 Streptococcus pneumoniae
 Streptococcus pyogenes
+Streptococcus thermophilus
 Streptomyces avermitilis
 Streptomyces coelicolor
 Sulcia muelleri
@@ -121,7 +129,7 @@ Thermus
 Treponema denticola
 Uzinura diaspidicola
 Vibrio cholerae
-Xanthobacter autotrophicus (blind_16)
+Xanthobacter autotrophicus / versatilis Py2
 Xanthomonas
 Xanthomonas campestris
 Zymomonas mobilis
