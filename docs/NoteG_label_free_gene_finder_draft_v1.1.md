@@ -1,9 +1,10 @@
 # Note G: a label-free, phone-sized gene finder from the period-3 rhythm, with genetic-code detection and honest blind testing
-### Draft v1.0 · Gary NOMEREMORTAL Mason · Digital Cosmos Framework · 7 November 2026
+### Draft v1.1 · Gary NOMEREMORTAL Mason · Digital Cosmos Framework · 9 November 2026
 
 **Status.**
-- Tool: `dcf_genefinder_mobile.py` **v2.30** (SHA-256 6b26c032…5022), numpy only; it runs in Pydroid 3 on Android.
-- Code and grader: public repository `xNOMEREMORTALx/dcf-genefinder` (being set up).
+- Tool: `dcf_genefinder_mobile.py` **v2.31** (SHA-256 215898df…36da), numpy only; it runs in Pydroid 3 on Android.
+- Code and grader: public repository `xNOMEREMORTALx/dcf-genefinder` (MIT).
+- **New in v1.1:** v2.31 (genome-size prior for the code decision); the code record through L3185 (**114 of 117**); blind sets 9–15 (§3i); the metal profile and selenocysteine finder with their limits (§5c); two new corrections (§6).
 - **New in v0.8:** blind sets 4 and 5 plus *S. epidermidis*; start accuracy as a third measure; v2.28 (start regression fixed), v2.29 (learned start signal), v2.30 (30-nt window).
 - **New in v0.7:**
   - four blind genome sets (L2953, L2957, L2965, L2977/L2981);
@@ -34,8 +35,11 @@
 | AGR fragmentation (L2728) | Are AGA/AGG stops (mitochondria)? | Top-gene length ratio: stops 0.86–0.97, sense 0.31–0.40 |
 | Reliability self-check (L2818) | Is the model failing? | Median predicted gene < 400 nt raises a warning |
 
-**Blind record: 66 correct of 68 genomes** (L2953–L3093, after the L2973 correction).
-- **The two errors:** *Nasuia* (L2953, flagged UNCERTAIN; now fixed by v2.25, post hoc) and *Hodgkinia* (an early round; fixed in v2.20).
+| **Genome-size prior** (v2.31, L3149) | read-through says 11, ratio says 4 | Keep 11 if the genome is > 2.5 Mb (known table-4 bacteria are ≤ about 2.2 Mb) |
+
+**Blind record: 114 correct of 117 genomes** (L2953–L3185, after the L2973 correction).
+- **The third error:** *Gluconobacter oxydans* (L3145). The length ratio (1.69) inflated in a medium-GC proteobacterium with about 70% TGA stops and overrode a correct read-through call. v2.31 fixes this for genomes > 2.5 Mb; blind test L3153, 4 of 4 passed. Genomes < 2.5 Mb with ratio > 1.6 remain unprotected.
+- **The first two errors:** *Nasuia* (L2953, flagged UNCERTAIN; now fixed by v2.25, post hoc) and *Hodgkinia* (an early round; fixed in v2.20).
 - **The read-through test is unreliable in AT-rich genomes.** In *Sulcia*, *Nasuia* and *Buchnera* it was wrong each time it disagreed with the length ratio, and the ratio was right.
 
 **Known limits.**
@@ -152,6 +156,16 @@
 - **Sensitivity** is now 89–97% in GC-rich genomes (after v2.26) and 79–96% elsewhere, against Prodigal's 93–99.6%.
 - **Exact starts** are 52–92% (v2.28–v2.30), against Prodigal's 77–93.5%. The gap ranges from about 1 point (*S. epidermidis*) to 17 points (*Porphyromonas*).
 
+### 3i. Blind sets 9–15 (L3137–L3185, v2.30/v2.31)
+These rounds tested mainly the metal and selenocysteine add-ons; the gene finder ran blind on every genome.
+| round | genomes | code correct | genes found | correct | exact starts |
+|---|---|---|---|---|---|
+| L3153 (set 11) | 6 | 6 | 89.2–94.6% | 91.0–97.7% | 72.1–91.5% |
+| L3165 (set 12) | 10 | 10 | 86–94% | 94–99% | 69–94% |
+| L3181/L3185 (sets 14–15) | 10 | 10 | 86.0–95.3% | 93.3–99.1% | 79.0–91.0% |
+
+(Sets 9, 10 and 13: code 6/6, 8/9 and 8/8; full grades are in their reports.)
+
 ## 4. Development accuracy and drivers (unchanged from v0.6)
 - Precision falls with GC (ρ = −0.63 across 29 genomes, L2871). At a given GC, a stronger codon rhythm raises it.
 - Animal mitochondria: 85–100% found. Reduced symbionts: 83–98%.
@@ -187,11 +201,23 @@ Blind set 7: 3 of 4 predictions passed.
 
 **Blind set 8 (L3093, pre-registered, 3 of 3 passed).** In *Methanohalophilus*, *Methanolobus*, *Methanosalsum* and *Methanomethylovorans*, **21 of 21** pyrrolysine methyltransferases are listed (9–20 TAG candidates per genome). Their TAG codons are again conserved (MtbB 355/356, MttB 334/324, MtmB 202 in 7 of 10). The genome-level excess would have flagged only 1 of the 4.
 
+## 5c. Metal profile and selenocysteine candidates (`dcf_metals.py`, `dcf_secflag.py`)
+- **Fe–S profile:** C-x-x-C motifs per 1,000 amino acids of the predicted proteins, with a frozen cut of 0.50 (L3141).
+  - It separates Fe–S-rich anaerobes (methanogens, acetogens, sulfate reducers) and aerobic H2 oxidisers from aerobes and lactic fermenters.
+  - It is **not** an oxygen meter (L3173).
+  - The anaerobe/aerobe contrast itself is published (Andreini *et al.*, PLoS ONE 2017); see Note H in dcf-math.
+  - R (observed/expected CxxC) is unstable below 0.4% cysteine, and the tool now warns.
+- **Selenocysteine finder:** recall 65% overall, 57% blind in AT-rich genomes, but too many candidates (> 100 per genome).
+  - An optional coding-potential filter (`--coding 0.05`, L3197) kept 28/28 caught sites with AUC 0.87 in development.
+  - Its blind test is pre-registered.
+
 ## 6. Corrections log
 1. **v2.22–v2.23:** a strand-coordinate bug in the codon-phase strength line. Fixed in v2.24; gene calls were unaffected.
 2. **L2965:** *M. genitalium* and *Deinococcus* were wrongly labelled unseen. Their blind status was withdrawn (L2973), and a list of every genome used now gates new requests.
 3. **v2.26:** best-start scoring also altered code detection, and *Hodgkinia* (code 4) was called standard. The L2969 side-effect check covered only genomes with GC ≤ 0.55. In **v2.27**, code detection is restored to v2.25, and a 12-genome code check (codes 2, 4, 11) now runs before release.
 5. **Reader (L3069):** `dcf_grade.py` and `dcf_promoters.py` dropped IUPAC ambiguity letters, shifting coordinates in some genomes. Grades were unaffected (coordinates only); the promoter verdicts were re-checked and unchanged. Fixed.
+6. **Selenocysteine counts (L3197):** counts in L3181/L3185 used `grep 'aa:Sec'`, which also matches tRNA-Sec anticodon lines. They are recounted from `transl_except`; no verdict changed.
+7. **Seen list (L3177):** *L. plantarum* (set 5) was missing from `seen_accessions.txt`; a name list (`seen_names.txt`) now backs it up.
 4. **v2.26–v2.27:** start selection searched only downstream of the best-start trim, and exact starts fell (*E. coli* 81.4% → 63.0%). The 50%-overlap grader could not see this. **v2.28** fixed it, and exact start is now reported by `dcf_grade.py` for every release.
 
 ## 7. Honest limits
@@ -204,7 +230,7 @@ Blind set 7: 3 of 4 predictions passed.
 
 ## Summary
 - **What it is.** A gene finder that teaches itself each genome's coding rhythm, needs only numpy, and runs on a phone.
-- **Genetic code.** It works out each genome's genetic code by itself, correct in 66 of 68 blind genomes.
+- **Genetic code.** It works out each genome's genetic code by itself, correct in 114 of 117 blind genomes.
 - **Promoters.** A companion script tells whether a genome's promoters can be read from sequence alone, correct in 22 of 22 genomes, and learns them where they can.
 - **Rare amino acids.** A second script lists genes that read through a stop codon. It caught all 48 pyrrolysine genes in nine microbes (21 of them in a blind test), which the official annotation had wrongly marked as broken, and *E. coli*'s three selenocysteine genes.
 - **Blind accuracy.** On 57 genomes never seen during development, its calls are right 91–99.8% of the time, about as often as the standard tool, Prodigal.
