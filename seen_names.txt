@@ -139,3 +139,9 @@ Desulfotomaculum (Desulforamulus) reducens
 Bacillus licheniformis
 Arcobacter (Aliarcobacter) butzleri
 Nautilia profundicola
+Methanosphaera stadtmanae
+Haloarcula marismortui
+Dehalogenimonas lykanthroporepellens
+Chloroflexus aurantiacus
+Parabacteroides distasonis
+Flavobacterium johnsoniae
