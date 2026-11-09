@@ -133,3 +133,9 @@ Xanthobacter autotrophicus / versatilis Py2
 Xanthomonas
 Xanthomonas campestris
 Zymomonas mobilis
+Desulfomicrobium baculatum
+Myxococcus xanthus
+Desulfotomaculum (Desulforamulus) reducens
+Bacillus licheniformis
+Arcobacter (Aliarcobacter) butzleri
+Nautilia profundicola (pre-registered L3217, pending)
