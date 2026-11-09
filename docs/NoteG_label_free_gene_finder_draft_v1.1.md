@@ -162,9 +162,23 @@ These rounds tested mainly the metal and selenocysteine add-ons; the gene finder
 |---|---|---|---|---|---|
 | L3153 (set 11) | 6 | 6 | 89.2–94.6% | 91.0–97.7% | 72.1–91.5% |
 | L3165 (set 12) | 10 | 10 | 86–94% | 94–99% | 69–94% |
-| L3181/L3185 (sets 14–15) | 10 | 10 | 86.0–95.3% | 93.3–99.1% | 79.0–91.0% |
+| L3181/L3185 (sets 14–15) | 10 | 10 | 86.0–95.3% | 95.5–99.2% | 79.0–91.0% |
 
 (Sets 9, 10 and 13: code 6/6, 8/9 and 8/8; full grades are in their reports.)
+
+### 3j. Head-to-head with Prodigal on sets 14–15 (L3205)
+Same 10 genomes, same grader (`dcf_grade.py`), Prodigal via pyrodigal 3.7.1 in single-genome mode with table 11.
+
+| measure | DCF v2.31 mean (range) | Prodigal mean (range) | DCF ≥ Prodigal |
+|---|---|---|---|
+| genes found | 91.8% (86.0–95.3) | 97.9% (96.3–98.9) | 0 of 10 |
+| predictions correct | **98.3%** (95.5–99.2) | 98.6% (96.3–99.3) | 3 of 10 |
+| exact starts | 84.8% (79.0–91.0) | 91.9% (88.6–94.4) | 0 of 10 |
+
+**Reading.**
+- **Precision is level with Prodigal** (0.3 points apart on average).
+- **The gaps are sensitivity (about 6 points) and starts (about 7 points).** These are the limits already listed in §7.
+- **Caveat:** the reference annotations come from NCBI's pipeline, which uses its own gene models, so neither tool is graded against experimental truth.
 
 ## 4. Development accuracy and drivers (unchanged from v0.6)
 - Precision falls with GC (ρ = −0.63 across 29 genomes, L2871). At a given GC, a stronger codon rhythm raises it.
