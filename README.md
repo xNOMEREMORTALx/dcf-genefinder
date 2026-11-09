@@ -3,11 +3,11 @@
 A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm of protein-coding DNA. It needs only Python 3 and numpy, and runs on Android (Pydroid 3).
 
 **Author:** Gary NOMEREMORTAL Mason (Digital Cosmos Framework).
-**Version:** 2.30.
+**Version:** 2.31.
 
 ## What it does
 - **Self-training.** Learns a period-3 coding model from the genome itself. No reference genes or training data are used.
-- **Genetic code.** Detects the genetic code automatically (standard, TGA = Trp "code 4", and mitochondrial variants). Blind record: 66 correct of 68 unseen genomes.
+- **Genetic code.** Detects the genetic code automatically (standard, TGA = Trp "code 4", and mitochondrial variants). Blind record: 104 correct of 107 unseen genomes (L3173). v2.31 adds a genome-size prior: table 4 is not chosen for genomes > 2.5 Mb when the two code tests disagree.
 - **Gene calls.** Calls genes, scoring each reading frame from its best start codon.
 - **Starts.** Learns each genome's own start signal: the upstream motif and start-codon preferences.
 - **Extra outputs:**
@@ -25,6 +25,7 @@ python3 dcf_grade.py genome.gb pred.gff3      # found / correct / exact start ag
 python3 dcf_promoters.py genome.gb pred.gff3  # learned -35/-10 promoter boxes with a self-check (clear in low-GC Firmicutes)
 python3 dcf_pylflag.py genome.gb pred.gff3    # TAG/TGA read-through candidates (pyrrolysine 48/48 genes; selenocysteine E. coli 3/3)
 python3 dcf_metals.py genome.gb pred.gff3     # metal-use profile: Fe-S (CxxC) density and C2H2 zinc fingers
+python3 dcf_secflag.py genome.gb pred.gff3    # selenocysteine candidates (upstream/downstream TGA read-through); reliable only at GC < 0.45
 ```
 Promoter self-check, blind set 6 (pre-registered): Firmicutes 1.59–3.78 (3/3 clear), proteobacteria 0.89–1.22 (0/4 clear); exact starts 74.5–94.1%.
 ```
