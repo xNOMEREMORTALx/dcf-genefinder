@@ -138,4 +138,4 @@ Myxococcus xanthus
 Desulfotomaculum (Desulforamulus) reducens
 Bacillus licheniformis
 Arcobacter (Aliarcobacter) butzleri
-Nautilia profundicola (pre-registered L3217, pending)
+Nautilia profundicola

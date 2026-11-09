@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""dcf_genefinder_mobile.py v2.31 — DCF label-free spectral gene finder, NO Biopython needed (works in Pydroid 3 on Android).
+"""dcf_genefinder_mobile.py v2.32 — DCF label-free spectral gene finder, NO Biopython needed (works in Pydroid 3 on Android).
 Gary NOMEREMORTAL Mason, Digital Cosmos Framework (L2723; algorithm = dcf_genefinder v2: period-3 self-training,
 shadow removal, GC frame-plot seed for GC-rich genomes, anti-Shine-Dalgarno starts from the genome's own 16S rRNA).
 Needs only numpy (Pydroid: Pip menu -> install numpy).
@@ -324,6 +324,9 @@ def _run(path,table='11',out='pred.gff3',mask_rrna=True):
         st=a if not cands else max(cands,key=lambda i:2*pair(S[max(0,i-17):i-4])+START[S[i:i+3]]+llr(arr(S[i:b-3]),LC,LN))
         preds.append((st,b,s)); _ext.append((a,b,s,cands))
     import os as _os
+    # L3209/L3217 (v2.32): in the learned start re-pick, coding weight 0.75, fixed penalties GTG -4 / TTG -5, and a re-picked start must
+    # leave the minimum gene length. Blind: exact starts +2.2 (L3213, 13 genomes) and +2.3 (L3229, 6 genomes); genes found unchanged or better.
+    _MINL=180 if _gc0>0.55 else 240; _LW=0.75; _PEN={'GTG':-4.0,'TTG':-5.0}
     if not mito and preds:   # L3001 (v2.29): on by default
         # L3001 (G11c/d): learn the genome's own start signal: log-odds of upstream bases (positions -20..-1) and of the start codon,
         # chosen starts of confident genes vs the alternative in-frame start codons of the same ORFs; then re-pick every start.
@@ -357,7 +360,8 @@ def _run(path,table='11',out='pred.gff3',mask_rrna=True):
             for (st,b,s),(a,b2,s2,cands) in zip(cur,_ext):
                 S=F if s==1 else R
                 if not cands: new.append((st,b,s)); continue
-                new.append((max(cands,key=lambda i:MW*ms(S,i)+CL[S[i:i+3]]+SDW*pair(S[max(0,i-17):i-4])+llr(arr(S[i:b-3]),LC,LN)),b,s))
+                _ok=[i for i in cands if b-i>=_MINL] or cands
+                new.append((max(_ok,key=lambda i:MW*ms(S,i)+CL[S[i:i+3]]+_PEN.get(S[i:i+3],0)+SDW*pair(S[max(0,i-17):i-4])+_LW*llr(arr(S[i:b-3]),LC,LN)),b,s))
             cur=new
         preds=cur
     # L2731: per-gene fit to the genome's own period-3 model (mean log-likelihood ratio per nt)
