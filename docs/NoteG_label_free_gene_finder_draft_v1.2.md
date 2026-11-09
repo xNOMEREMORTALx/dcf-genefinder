@@ -1,9 +1,10 @@
 # Note G: a label-free, phone-sized gene finder from the period-3 rhythm, with genetic-code detection and honest blind testing
-### Draft v1.1 · Gary NOMEREMORTAL Mason · Digital Cosmos Framework · 9 November 2026
+### Draft v1.2 · Gary NOMEREMORTAL Mason · Digital Cosmos Framework · 9 November 2026
 
 **Status.**
-- Tool: `dcf_genefinder_mobile.py` **v2.31** (SHA-256 215898df…36da), numpy only; it runs in Pydroid 3 on Android.
+- Tool: `dcf_genefinder_mobile.py` **v2.32** (SHA-256 fa30258b…297c), numpy only; it runs in Pydroid 3 on Android.
 - Code and grader: public repository `xNOMEREMORTALx/dcf-genefinder` (MIT).
+- **New in v1.2:** v2.32, start-codon re-pick fix, blind-tested twice (§3k); code record 134 of 137.
 - **New in v1.1:** v2.31 (genome-size prior for the code decision); the code record through L3185 (**114 of 117**); blind sets 9–15 (§3i); the metal profile and selenocysteine finder with their limits (§5c); two new corrections (§6).
 - **New in v0.8:** blind sets 4 and 5 plus *S. epidermidis*; start accuracy as a third measure; v2.28 (start regression fixed), v2.29 (learned start signal), v2.30 (30-nt window).
 - **New in v0.7:**
@@ -37,7 +38,7 @@
 
 | **Genome-size prior** (v2.31, L3149) | read-through says 11, ratio says 4 | Keep 11 if the genome is > 2.5 Mb (known table-4 bacteria are ≤ about 2.2 Mb) |
 
-**Blind record: 114 correct of 117 genomes** (L2953–L3185, after the L2973 correction).
+**Blind record: 134 correct of 137 genomes** (L2953–L3229, after the L2973 correction).
 - **The third error:** *Gluconobacter oxydans* (L3145). The length ratio (1.69) inflated in a medium-GC proteobacterium with about 70% TGA stops and overrode a correct read-through call. v2.31 fixes this for genomes > 2.5 Mb; blind test L3153, 4 of 4 passed. Genomes < 2.5 Mb with ratio > 1.6 remain unprotected.
 - **The first two errors:** *Nasuia* (L2953, flagged UNCERTAIN; now fixed by v2.25, post hoc) and *Hodgkinia* (an early round; fixed in v2.20).
 - **The read-through test is unreliable in AT-rich genomes.** In *Sulcia*, *Nasuia* and *Buchnera* it was wrong each time it disagreed with the length ratio, and the ratio was right.
@@ -179,6 +180,20 @@ Same 10 genomes, same grader (`dcf_grade.py`), Prodigal via pyrodigal 3.7.1 in s
 - **Precision is level with Prodigal** (0.3 points apart on average).
 - **The gaps are sensitivity (about 6 points) and starts (about 7 points).** These are the limits already listed in §7.
 - **Caveat:** the reference annotations come from NCBI's pipeline, which uses its own gene models, so neither tool is graded against experimental truth.
+
+### 3k. Gene starts, v2.32 (L3209–L3229)
+**Diagnosis (development, blind_14/15).** Start errors in GC-rich genomes were mostly too short (2:1). The commonest case was a downstream TTG/GTG chosen over the annotated ATG, because the learned codon weights were circular, i.e. learned from the tool's own picks.
+
+**Fix.**
+- Fixed penalties GTG −4 and TTG −5 in the learned re-pick, and coding weight 0.75.
+- From v2.32b: a re-picked start must leave the minimum gene length. Without this guard, a few genes shrank to 9–120 nt fragments.
+
+| blind test | genomes | exact starts v2.31 → v2.32 | genes found | verdict |
+|---|---|---|---|---|
+| L3213 (v2.32 candidate, no guard) | 13 | 82.3 → 84.5 (+2.2) | −0.6 in 1 genome | T1, T2 pass; **T3 fail** (not released) |
+| **L3229 (v2.32b)** | 6 | +2.3 (largest +5.5, +5.3 in GC-rich) | +0.04 to +0.48 | **D4–D6 pass → released** |
+
+Prodigal on the L3213 set: exact starts 88.4%. The gap to Prodigal narrows from about 6 points to about 4.
 
 ## 4. Development accuracy and drivers (unchanged from v0.6)
 - Precision falls with GC (ρ = −0.63 across 29 genomes, L2871). At a given GC, a stronger codon rhythm raises it.
