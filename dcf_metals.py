@@ -32,6 +32,8 @@ def main(seqpath, gffpath):
     R = cxxc / exp if exp else 0
     print("metal-use profile: %d proteins, %d aa, cysteine %.4f" % (len(P), n, fC))
     print("  Fe-S/redox  C-x-x-C: %.2f per 1000 aa, %.1fx the cysteine-level expectation" % (1000 * cxxc / max(n, 1), R))
+    if fC < 0.004:
+        print("  note: cysteine below 0.4%, so R is unstable (tiny expected count); use the density, not R (L3189 R-floor)")
     print("  Zn fingers  C2H2: %d motifs in %d proteins (%.2f proteins per 1000)" % (zf, zfp, 1000 * zfp / max(len(P), 1)))
     print("  reading: %s" % ("Fe-S rich (anaerobe-like, e.g. methanogens)" if 1000 * cxxc / max(n, 1) > 0.7 else "Fe-S moderate (aerobe-like)"))
     return R

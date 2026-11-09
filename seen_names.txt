@@ -1,0 +1,89 @@
+# Organism names already used in DCF rounds (check new genomes by NAME as well as accession).
+# Built in L3189 from handoff H6, Note G v1.0 (sets 1-6, pyrrolysine sets 7-8) and blind_13-16 pre-registrations.
+# KNOWN GAP: blind_9 to blind_12 and the 11 methanogens of L3117 are listed by accession only; add their names from the reports.
+# Genus-level match = check by hand; species-level match = reject.
+Acetobacterium woodii
+Acinetobacter
+Aeromonas hydrophila
+Arabidopsis thaliana (mitochondrion)
+Bacillus cereus
+Bacillus subtilis
+Bacteroides thetaiotaomicron
+Blochmannia floridanus
+Bordetella bronchiseptica
+Bordetella pertussis
+Buchnera aphidicola
+Carsonella ruddii
+Caulobacter crescentus
+Chlamydia trachomatis
+Chlorobaculum tepidum (blind_16)
+Chlorobium chlorochromatii (blind_16)
+Clostridioides difficile
+Clostridium acetobutylicum
+Clostridium ljungdahlii
+Clostridium perfringens
+Corynebacterium diphtheriae
+Corynebacterium glutamicum
+Cupriavidus necator (Ralstonia eutropha) H16 (chr 1; pHG1 in blind_16)
+Cytophaga hutchinsonii
+Deinococcus radiodurans
+Desulfitobacterium hafniense
+Desulforapulum (Desulfobacterium) autotrophicum
+Enterobacter sp. 638
+Enterococcus faecalis
+Escherichia coli
+Francisella tularensis
+Fusobacterium nucleatum
+Geobacter
+Gluconobacter oxydans
+Halobacterium salinarum
+Halothiobacillus neapolitanus (blind_16)
+Hodgkinia cicadicola
+Hydrogenobacter thermophilus
+Klebsiella pneumoniae
+Lactobacillus acidophilus
+Lactobacillus plantarum (Note G set 5; accession was missing from seen_accessions.txt)
+Lactococcus lactis
+Legionella pneumophila
+Leuconostoc mesenteroides
+Listeria monocytogenes
+Methanococcoides burtonii
+Methanosarcina acetivorans
+Methanosarcina barkeri
+Methanosarcina mazei
+Methanospirillum (named in L3077/L3081)
+Methanothermobacter thermautotrophicus
+Micrococcus luteus
+Mycobacterium tuberculosis
+Mycoplasma genitalium
+Mycoplasma pneumoniae
+Nasuia deltocephalinicola
+Nitrosomonas europaea
+Nitrosospira multiformis (blind_16)
+Nocardia farcinica
+Pelagibacter ubique
+Porphyromonas gingivalis
+Prochlorococcus marinus MED4
+Pseudomonas aeruginosa
+Pseudomonas protegens (fluorescens) Pf-5
+Pyrococcus
+Rhodopseudomonas palustris
+Serratia proteamaculans
+Shewanella
+Staphylococcus aureus
+Staphylococcus epidermidis
+Streptococcus mutans
+Streptococcus pneumoniae
+Streptococcus pyogenes
+Streptomyces coelicolor
+Sulcia muelleri
+Sulfolobus solfataricus
+Synechocystis PCC 6803
+Thermococcus kodakarensis
+Thermotoga
+Thermus
+Treponema denticola
+Uzinura diaspidicola
+Vibrio cholerae
+Xanthobacter autotrophicus (blind_16)
+Xanthomonas
