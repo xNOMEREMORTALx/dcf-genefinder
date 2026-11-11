@@ -26,6 +26,7 @@ python3 dcf_grade.py genome.gb pred.gff3      # found / correct / exact start ag
 python3 dcf_promoters.py genome.gb pred.gff3  # learned -35/-10 promoter boxes with a self-check (clear in low-GC Firmicutes)
 python3 dcf_pylflag.py genome.gb pred.gff3    # TAG/TGA read-through candidates (pyrrolysine 48/48 genes; selenocysteine E. coli 3/3)
 python3 dcf_metals.py genome.gb pred.gff3     # metal-use profile: Fe-S (CxxC) density and C2H2 zinc fingers
+python3 dcf_redox.py genome.gb pred.gff3      # energy-metal tier: iron ladder, copper CuA, zinc ribbon -> tier 1-4 (L3277; blind 14 of 16)
 python3 dcf_secflag.py genome.gb pred.gff3    # selenocysteine candidates (upstream/downstream TGA read-through); reliable only at GC < 0.45
 ```
 Promoter self-check, blind set 6 (pre-registered): Firmicutes 1.59–3.78 (3/3 clear), proteobacteria 0.89–1.22 (0/4 clear); exact starts 74.5–94.1%.
