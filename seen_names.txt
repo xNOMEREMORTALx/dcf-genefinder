@@ -145,3 +145,19 @@ Dehalogenimonas lykanthroporepellens
 Chloroflexus aurantiacus
 Parabacteroides distasonis
 Flavobacterium johnsoniae
+Lacticaseibacillus rhamnosus GG
+Streptococcus agalactiae
+Ligilactobacillus salivarius
+Lactobacillus gasseri
+Azotobacter vinelandii
+Paracoccus denitrificans
+Halomonas elongata
+Burkholderia thailandensis
+Clostridium botulinum
+Acetivibrio (Clostridium) thermocellus
+Fervidobacterium nodosum
+Ruminiclostridium (Clostridium) cellulolyticum
+Methanobrevibacter smithii
+Thermodesulfovibrio yellowstonii
+Sulfurihydrogenibium azorense
+Syntrophobacter fumaroxidans
