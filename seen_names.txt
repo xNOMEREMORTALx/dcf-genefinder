@@ -161,3 +161,15 @@ Methanobrevibacter smithii
 Thermodesulfovibrio yellowstonii
 Sulfurihydrogenibium azorense
 Syntrophobacter fumaroxidans
+Campylobacter fetus
+Helicobacter hepaticus
+Thermocrinis albus
+Persephonella marina
+(Para)magnetospirillum magneticum AMB-1
+Lactobacillus johnsonii
+Streptococcus gordonii
+Methanopyrus kandleri
+Desulfohalobium retbaense
+Campylobacter jejuni (accession seen pre-L3189)
+Helicobacter pylori (accession seen pre-L3189)
+Aquifex aeolicus (accession seen pre-L3189)
