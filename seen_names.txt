@@ -173,3 +173,12 @@ Desulfohalobium retbaense
 Campylobacter jejuni (accession seen pre-L3189)
 Helicobacter pylori (accession seen pre-L3189)
 Aquifex aeolicus (accession seen pre-L3189)
+Synechococcus elongatus PCC 7942
+Nostoc (Anabaena) sp. PCC 7120
+Thermosynechococcus elongatus/vestitus BP-1
+Gloeobacter violaceus
+Heliobacterium (Heliomicrobium) modesticaldum
+Sulfurospirillum deleyianum
+Nitratiruptor sp. SB155-2
+Sulfurovum sp. NBC37-1
+Wolinella succinogenes
