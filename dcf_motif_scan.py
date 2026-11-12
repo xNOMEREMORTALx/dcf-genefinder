@@ -19,6 +19,7 @@ PRESETS = {
   "cchc":      (r"C..C....H....C", "CCHC zinc knuckle (RNA binding)", "dev L3281: 11/12 known human genes"),
   "volt_s4":   (r"(?=[RK][AVILMFWYGSTC]{2}[RK][AVILMFWYGSTC]{2}[RK][AVILMFWYGSTC]{2}[RK][AVILMFWYGSTC]{2}[RK])", "voltage sensor S4 (nerve, muscle channels)", "test L3293: 11/13 recall, 11/11 precision"),
   "k_filter":  (r"[TSC][VIT]G[YF]G", "potassium-channel selectivity filter", "test L3293: recall 11/13, precision 0.42 (failed bar 0.45)"),
+  "k_filter2": (r"[TSC][VITL]G[YF]G", "potassium filter incl. Kv3/Kv4 T-T-L-G-Y-G (correction found L3301)", "UNTESTED correction of L3293 N1"),
   "cys_loop":  (r"C.{4,6}[FY]P[FYWM]D.{3}C", "Cys-loop neurotransmitter receptor (corrected for GABA-A F/Y-P-M-D)", "UNTESTED correction of L3293 N3 (failed)"),
 }
 __doc__ += "\n".join("  %-11s %s  [%s]" % (k, v[1], v[2]) for k, v in PRESETS.items())
