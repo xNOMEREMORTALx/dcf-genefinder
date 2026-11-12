@@ -182,3 +182,15 @@ Sulfurospirillum deleyianum
 Nitratiruptor sp. SB155-2
 Sulfurovum sp. NBC37-1
 Wolinella succinogenes
+Lactobacillus helveticus
+Streptococcus mitis
+Weissella koreensis
+Ralstonia (pseudo)solanacearum GMI1000
+Rhizobium etli
+Bacillus pumilus
+Clostridium novyi
+Thermosipho melanesiensis
+Clostridium cellulovorans
+Methanocella paludicola
+Desulfobacca acetoxidans
+Acetohalobium arabaticum
