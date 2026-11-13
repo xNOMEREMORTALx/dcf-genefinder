@@ -194,3 +194,11 @@ Clostridium cellulovorans
 Methanocella paludicola
 Desulfobacca acetoxidans
 Acetohalobium arabaticum
+Levilactobacillus (Lactobacillus) brevis
+Leuconostoc citreum
+Lacticaseibacillus (Lactobacillus) paracasei/casei ATCC 334
+Streptococcus sanguinis
+Geobacillus kaustophilus
+Kineococcus radiotolerans
+Methanothrix (Methanosaeta) thermophila/thermoacetophila PT
+Desulfatibacillum alkenivorans/aliphaticivorans AK-01
