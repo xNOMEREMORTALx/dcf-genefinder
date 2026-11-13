@@ -12,7 +12,9 @@ import gzip, re, sys
 PRESETS = {
   "hedgehog":  (r"H[YF]EGRA[VI]D.{40,80}GCF", "Hedgehog signal protein: zinc site + G-C-F self-cutting site (cholesterol)", "dev L3297: IHH only of 26,088 human transcripts; 0 in 70 microbes"),
   "hedgehog2": (r"H[YF]EGRA[VIL]D.{40,80}GCF", "hedgehog incl. DHH H-Y-E-G-R-A-L-D (correction found L3305)", "UNTESTED correction of L3297 S1"),
-  "fd_ladder": (r"C..C..C...C", "4Fe-4S ferredoxin 3-3-4 ladder", "blind: 14/16 tiers (L3269), photosynthesis P1/P2 (L3293)"),
+  "fd_ladder": (r"C..C..C...C", "4Fe-4S ferredoxin 3-3-4 ladder", "NON-overlapping count (kept as frozen; used for protist tests L3353-L3365; eukaryote cut 0.0035)"),
+  "fd_ladder_ov": (r"(?=C..C..C...C)", "4Fe-4S ladder counted OVERLAPPING (same as dcf_redox; prokaryote tiers)", "blind 35/37 tiers (L3333/L3341); prokaryote motif"),
+  "ladder_p":  (r"(?=C..C..C...CP)", "Ladder-P: ladder ending C-P, overlapping (eukaryote motif)", "blind L3401: 5/5 protists at cut 0.0017; separation 3.5x vs 2.2x"),
   "cuA":       (r"C.E.C...H..M", "copper CuA site (oxygen respiration)", "100% precision, 12 genomes (L3257)"),
   "zn_ribbon": (r"C..C.{9,20}C..C", "zinc ribbon knuckle pair (structural Zn; unmasked here, dcf_redox masks ladder cysteines)", "blind L3273/L3285 (masked version)"),
   "rubredoxin":(r"C..CG.{24,32}C..CG", "rubredoxin iron knuckle pair", "blind RB1/RB2 (L3285)"),
