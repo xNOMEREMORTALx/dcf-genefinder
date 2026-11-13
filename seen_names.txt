@@ -202,3 +202,11 @@ Geobacillus kaustophilus
 Kineococcus radiotolerans
 Methanothrix (Methanosaeta) thermophila/thermoacetophila PT
 Desulfatibacillum alkenivorans/aliphaticivorans AK-01
+Limosilactobacillus (Lactobacillus) reuteri DSM 20016
+Latilactobacillus (Lactobacillus) sakei 23K
+Limosilactobacillus (Lactobacillus) fermentum IFO 3956
+Lactobacillus crispatus ST1
+Streptococcus suis P1/7
+Staphylococcus haemolyticus
+Exiguobacterium sibiricum/artemiae 255-15
+Listeria welshimeri
