@@ -1,0 +1,18 @@
+{
+  "title": "DCF gene finder and nerve-chemistry tools: label-free gene calling and metal-class annotation",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Mason, Gary NOMEREMORTAL"
+    }
+  ],
+  "license": "MIT",
+  "description": "Label-free period-3 gene finder with genetic-code detection, the ferredoxin-ladder redox profiler, and the nerve-chemistry tools (dcf_nerve, dcf_pump, dcf_neurometal, dcf_k2p) used in the Digital Cosmos Framework pre-registered tests. Not for medical use.",
+  "keywords": [
+    "gene finding",
+    "bioinformatics",
+    "ion channels",
+    "P-type ATPase",
+    "label-free annotation"
+  ]
+}
