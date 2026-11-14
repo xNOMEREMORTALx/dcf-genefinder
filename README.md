@@ -1,5 +1,8 @@
 # DCF gene finder
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24234986.svg)](https://doi.org/10.5281/zenodo.24234986)
+
+
 A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm of protein-coding DNA. It needs only Python 3 and numpy, and runs on Android (Pydroid 3).
 
 **Author:** Gary NOMEREMORTAL Mason (Digital Cosmos Framework).
