@@ -1,14 +1,15 @@
-"""dcf_nerve.py (DCF phone companion, L3433; L3457 adds pumps, NMDA, iron hydroxylase): nerve channels sorted by the metal ion they pass, from an mRNA FASTA.
+"""dcf_nerve.py v2 (DCF phone/genefinder companion, L3549): nerve chemistry by metal, the nerve 'battery', and the
+excitability (arousal/rhythm) parts list, read label-free from sequence.
 Author: Gary NOMEREMORTAL Mason (Digital Cosmos Framework). License: MIT. Not for medical use.
-Rules are exactly those that passed blind on mouse.3 (L3429, 10 of 10):
-  dcf_neurometal v2 (L3425 A1): voltage sensor S4; >= 1500 aa: calcium ring [TS]x[ED]xW >= 3 -> Ca,
-      <= 1 with the sodium lysine loop [TS][FY][KR][GA]W -> Na, else undecided; < 1500 aa: CIGYG -> HCN,
-      [TSC][VITL]G[YF]G -> K, else other.
-  dcf_k2p (L3425 A2): < 700 aa, no S4, >= 2 filters T[VIT]G[YFL]G -> K2P leak channel (anaesthetic targets TREK/TASK).
-  L3449 finders (passed blind in chicken, L3457: 13 of 14 predictions):
-      glutamate receptors Y-T-A-N-L-A-A; NMDA receptors A-S-Y-T-A-N-L; iron hydroxylases (dopamine/serotonin) [CV]-H-E-[LI]-L-G-H;
-      P-type pumps D-K-T-G-T-[LIVM]-[TI] sorted by metal: [NY]-V-P-E-G-L = Na/K, A-[IV]-P-E-G-L = Ca, C-P-C + 2 x GM[TSHN]CxxC = Cu.
-Input: RefSeq mRNA FASTA (NM_ and XM_ records) (.fna or .fna.gz); one transcript per gene (lowest NM_), longest ATG reading frame."""
+Input: RefSeq mRNA FASTA (NM_/XM_, longest ATG ORF per gene), protein FASTA (e.g. Ensembl pep.all), or a UniProt TSV
+(Entry + Sequence columns). .gz accepted.
+Rules = dcf_neurochem6 v8 (blind record: mouse, zebrafish, chicken, fly, nematode, all Swiss-Prot animals, 24,796 TrEMBL Na/Ca
+channels, early animals, comb jellies) + T-type calcium split (development L3549: 14/15 T-type, 0/30 false):
+  channels: voltage sensor S4 (or weak sensor + K filter); 4-domain: sodium lysine T-F-K-G-W -> Na (DEKA), T-F-N-G-W -> Na sensor
+            (Nax, DENA), calcium ring [TS]x[ED]xW >= 3 -> Ca (>= 2 ring sites with D -> T-type, else L/N/P/Q/R-type);
+            1-domain: C-I-G-Y-G -> HCN, [TSC][VITL]G[YF]G -> K; K2P leak; glutamate receptor Y-T-A-N-L-A-A;
+            iron hydroxylase [CVI]-H-E-[LI]-[LM]-G-H (dopamine/noradrenaline/serotonin synthesis);
+  pumps (battery chargers): D-K-T-G-T-[LIVM]-[TI] + loop [NY]-V-P-E-G-L Na/K, [AS]-[IV]-P-E-G-L Ca, C-P-C + 2 x GM[TSHN]CxxC Cu."""
 import gzip, re
 CODE = {}; _b = 'TCAG'; _aa = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG'
 for i, x in enumerate(_b):
@@ -24,57 +25,86 @@ def orf(s):
     return best
 H = '[AVILMFWYGSTC]'
 S4 = r'(?=[RK]' + H + '{2}[RK]' + H + '{2}[RK]' + H + '{2}[RK]' + H + '{2}[RK])'
-RING = r'(?=[TS].[ED].W)'
-def classify(p):
-    """returns (S4 count, ring count, class or None) - v2 rule"""
-    s4 = len(re.findall(S4, p))
-    if not s4: return s4, 0, None
-    r = len(re.findall(RING, p))
-    if len(p) >= 1500: return s4, r, 'Ca' if r >= 3 else 'Na' if r <= 1 and re.search(r'[TS][FY][KR][GA]W', p) else 'undecided'
-    if 'CIGYG' in p: return s4, r, 'HCN'
-    if re.search(r'[TSC][VITL]G[YF]G', p): return s4, r, 'K'
-    return s4, r, 'other'
+RING = r'(?=[TS].[ED].W)'; LYS = r'[TS][FY][KR][GA]W'; NAX = r'[TS]F[NQ]GW'
+def weak(p):
+    return bool(re.search(r'(?=[RK]..[RK]..[RK]..[RK])', p)) or any(sum(x in 'RK' for x in m.groups()) == 4
+               for m in re.finditer(r'(?=([RKQ])..([RKQ])..([RKQ])..([RKQ])..([RKQ]))', p))
+def channel(p):
+    s4 = bool(re.search(S4, p)); r = len(re.findall(RING, p)); lys = bool(re.search(LYS, p)); nax = bool(re.search(NAX, p))
+    kv7 = len(p) < 1500 and re.search(r'(?=R..Q..R..[RH])', p) and re.search(r'[TS][VI]GYGD', p)
+    if not (s4 or kv7) and re.search(r'[TS][VI]GYGD|SVGFGN|CIGYG', p): kv7 = weak(p)
+    if not (s4 or kv7): return None
+    if len(p) >= 1500 and s4 and (r >= 3 or lys or nax):
+        if lys: return 'Na'
+        if nax: return 'Nax'
+        if r >= 3:
+            hits = [p[m.start():m.start() + 5] for m in re.finditer(RING, p)]
+            return 'CaT' if sum(h[2] == 'D' for h in hits) >= 2 else 'Ca'
+        return 'undecided'
+    if 'CIGYG' in p: return 'HCN'
+    if re.search(r'[TSC][VITL]G[YF]G', p): return 'K'
+    return None
 def pump_class(p):
     if not re.search(r'DKTGT[LIVM][TI]', p): return None
     if re.search(r'[NY]VPEGL', p): return 'pump_NaK'
-    if re.search(r'A[IV]PEGL', p): return 'pump_Ca'
+    if re.search(r'[AS][IV]PEGL', p): return 'pump_Ca'
     if 'CPC' in p and len(re.findall(r'GM[TSHN]C..C', p)) >= 2: return 'pump_Cu'
     return 'pump_other'
-def is_k2p(p): return len(p) < 700 and not re.search(S4, p) and len(re.findall(r'T[VIT]G[YFL]G', p)) >= 2
-def genes_from(path):
+def is_k2p(p): return len(p) < 1100 and not re.search(S4, p) and len(re.findall(r'[TS][TSV][IVT]G[YFL]G', p)) >= 2
+def classify(p):
+    """kept for older callers: (S4 count, ring count, channel class)"""
+    return len(re.findall(S4, p)), len(re.findall(RING, p)), channel(p)
+def tags(p):
+    t = []; c = channel(p)
+    if c: t.append(c)
+    if is_k2p(p): t.append('K2P')
+    if 'YTANLAA' in p: t.append('iGluR')
+    if re.search(r'[CVI]HE[LI][LM]GH', p): t.append('FeHyd')
+    pc = pump_class(p)
+    if pc: t.append(pc)
+    return t
+def proteins(path):
     op = gzip.open if path.endswith('.gz') else open
     with op(path, 'rt', errors='replace') as h: txt = h.read()
-    genes = {}
+    out = {}
+    if not txt.startswith('>'):
+        L = txt.splitlines(); hd = L[0].split('\t'); ie = hd.index('Entry'); iq = hd.index('Sequence')
+        for l in L[1:]:
+            f = l.split('\t')
+            if len(f) > iq: out[f[ie]] = f[iq]
+        return out
     for blk in txt.split('>')[1:]:
-        h, _, s = blk.partition('\n'); acc = h.split()[0] if h.split() else ''
-        if not acc.startswith(('NM_', 'XM_')): continue
-        m = re.findall(r'\(([A-Za-z0-9\-\.]+)\)', h); g = m[-1] if m else acc
-        seq = re.sub(r'\s', '', s).upper()
-        if g not in genes or len(seq) > len(genes[g][2]): genes[g] = (0, acc, seq)
-    return genes
-NAMES = {'Ca': 'CALCIUM channels (transmitter release, heart, rhythm)', 'Na': 'SODIUM channels (the nerve spike)',
-         'K': 'POTASSIUM channels (reset after each spike)', 'HCN': 'HCN pacemaker channels (K/Na)',
-         'K2P': 'K2P potassium LEAK channels (resting potential; anaesthetic targets)', 'undecided': 'undecided 4-domain',
-         'other': 'voltage sensor, no filter (not called)',
-         'iGluR': 'glutamate receptors (fast excitatory synapses)', 'NMDA': 'NMDA receptors (Mg-blocked, Ca-passing: learning)',
-         'FeHyd': 'IRON hydroxylases (make dopamine, noradrenaline, serotonin)',
-         'pump_NaK': 'Na/K PUMPS (charge the battery with ATP)', 'pump_Ca': 'CALCIUM pumps', 'pump_Cu': 'COPPER pumps (supply copper to noradrenaline enzyme)',
-         'pump_other': 'P-type ATPases without a metal (lipid flippases, P5)'}
-def report(path):
-    genes = genes_from(path); out = {}
-    for g, (_, acc, s) in genes.items():
-        p = orf(s); _, _, c = classify(p)
-        if c is None and is_k2p(p): c = 'K2P'
-        tags = [c] if c else []
-        for t, pat in (('iGluR', 'YTANLAA'), ('NMDA', 'ASYTANL'), ('FeHyd', '[CV]HE[LI]LGH')):
-            if re.search(pat, p): tags.append(t)
-        pc = pump_class(p)
-        if pc: tags.append(pc)
-        for t in tags: out.setdefault(t, []).append("%s (%d aa)" % (g, len(p)))
-    lines = ["DCF nerve channels by metal ion: %s  (%d genes)" % (path.replace('\\', '/').rsplit('/', 1)[-1], len(genes))]
-    for c in ['Na', 'K', 'Ca', 'HCN', 'K2P', 'iGluR', 'NMDA', 'FeHyd', 'pump_NaK', 'pump_Ca', 'pump_Cu', 'pump_other', 'undecided', 'other']:
-        if c in out: lines.append("  %-9s %3d  %s\n            %s" % (c, len(out[c]), NAMES[c], ", ".join(sorted(out[c]))))
-    lines.append("  Blind record: mouse.3 (L3429) 10/10; zebrafish (L3441, L3445) 17/21; chicken (L3457) 13/14. Not for medical use.")
-    return "\n".join(lines)
+        h, _, s = blk.partition('\n'); seq = re.sub(r'\s', '', s).upper().rstrip('*'); acc = h.split()[0] if h.split() else ''
+        if acc.startswith(('NR_', 'XR_')): continue   # non-coding RNA records
+        if acc.startswith(('NM_', 'XM_')):
+            m = re.findall(r'\(([A-Za-z0-9\-\.:]+)\)', h); g = m[-1] if m else acc; p = orf(seq)
+        else:
+            m = re.search(r'gene_symbol:(\S+)|gene:(\S+)', h); g = (m.group(1) or m.group(2)) if m else acc
+            p = seq if set(seq[:200]) - set('ACGTN') else orf(seq)
+        if g not in out or len(p) > len(out[g]): out[g] = p
+    return out
+NAMES = {'Na': 'SODIUM channels, DEKA (the nerve spike)', 'Nax': 'SODIUM SENSOR Nax (DENA)', 'K': 'POTASSIUM channels (reset after each spike)',
+         'Ca': 'CALCIUM channels, high-voltage (transmitter release)', 'CaT': 'CALCIUM channels, T-type (rhythmic bursts, sleep spindles)',
+         'HCN': 'HCN pacemakers (rhythm drive)', 'K2P': 'K2P LEAK channels (resting level; anaesthetic targets)',
+         'iGluR': 'glutamate receptors (excitation, learning)', 'FeHyd': 'IRON hydroxylases (dopamine, noradrenaline, serotonin)',
+         'pump_NaK': 'Na/K PUMPS (charge the battery)', 'pump_Ca': 'CALCIUM pumps', 'pump_Cu': 'COPPER pumps', 'pump_other': 'P-type ATPases, no metal',
+         'undecided': 'undecided 4-domain'}
+ORDER = ['Na', 'Nax', 'K', 'Ca', 'CaT', 'HCN', 'K2P', 'iGluR', 'FeHyd', 'pump_NaK', 'pump_Ca', 'pump_Cu', 'pump_other', 'undecided']
+def report(path, show=40):
+    P = proteins(path); out = {}
+    for g, p in P.items():
+        for t in tags(p): out.setdefault(t, []).append(g)
+    n = lambda k: len(out.get(k, []))
+    L = ["DCF nerve chemistry by metal: %s  (%d genes/proteins)" % (path.replace('\\', '/').rsplit('/', 1)[-1], len(P))]
+    for c in ORDER:
+        if c in out:
+            names = sorted(out[c]); L.append("  %-10s %3d  %s\n             %s%s" % (c, len(names), NAMES[c], ", ".join(names[:show]), ' ...' if len(names) > show else ''))
+    ch = sum(n(k) for k in ('Na', 'Nax', 'K', 'Ca', 'CaT', 'HCN', 'K2P')); pu = sum(n(k) for k in ('pump_NaK', 'pump_Ca', 'pump_Cu'))
+    L.append("  BATTERY: %d dischargers (channels) : %d chargers (metal pumps)%s" % (ch, pu, ' = %.1f per pump' % (ch / pu) if pu else ''))
+    L.append("  EXCITABILITY KIT (arousal and rhythm parts; not a measure of consciousness): pacemaker HCN %d, T-type Ca %d, K2P leak %d,"
+             " monoamine iron enzymes %d, glutamate receptors %d" % (n('HCN'), n('CaT'), n('K2P'), n('FeHyd'), n('iGluR')))
+    L.append("  Sodium spike type: %s" % ('DEKA present (bilaterian-type fast spike)' if n('Na') else 'no DEKA sodium channel (early-animal or ambulacrarian type, or none)'))
+    L.append("  Not for medical use.")
+    return "\n".join(L)
 if __name__ == '__main__':
     import sys; print(report(sys.argv[1]))
