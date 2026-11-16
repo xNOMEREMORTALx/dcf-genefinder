@@ -1,4 +1,4 @@
-"""dcf_nerve.py v2 (DCF phone/genefinder companion, L3549): nerve chemistry by metal, the nerve 'battery', and the
+"""dcf_nerve.py v3 (DCF phone/genefinder companion, L3549; v3 L3637: sodium loop also T-W-K-G-W, blind-tested 6 of 7 in L3637): nerve chemistry by metal, the nerve 'battery', and the
 excitability (arousal/rhythm) parts list, read label-free from sequence.
 Author: Gary NOMEREMORTAL Mason (Digital Cosmos Framework). License: MIT. Not for medical use.
 Input: RefSeq mRNA FASTA (NM_/XM_, longest ATG ORF per gene), protein FASTA (e.g. Ensembl pep.all), or a UniProt TSV
@@ -25,7 +25,7 @@ def orf(s):
     return best
 H = '[AVILMFWYGSTC]'
 S4 = r'(?=[RK]' + H + '{2}[RK]' + H + '{2}[RK]' + H + '{2}[RK]' + H + '{2}[RK])'
-RING = r'(?=[TS].[ED].W)'; LYS = r'[TS][FY][KR][GA]W'; NAX = r'[TS]F[NQ]GW'
+RING = r'(?=[TS].[ED].W)'; LYS = r'[TS][FY][KR][GA]W|[TS]WK[GA]W'; NAX = r'[TS]F[NQ]GW'
 def weak(p):
     return bool(re.search(r'(?=[RK]..[RK]..[RK]..[RK])', p)) or any(sum(x in 'RK' for x in m.groups()) == 4
                for m in re.finditer(r'(?=([RKQ])..([RKQ])..([RKQ])..([RKQ])..([RKQ]))', p))
