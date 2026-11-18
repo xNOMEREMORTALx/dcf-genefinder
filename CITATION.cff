@@ -9,4 +9,17 @@ version: "1.2.0"
 date-released: 2026-11-17
 license: MIT
 repository-code: "https://github.com/xNOMEREMORTALx/dcf-genefinder"
-doi: "10.5281/zenodo.24302710"
+doi: "10.5281/zenodo.24234985"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24234985"
+    description: "Concept DOI (all versions)"
+  - type: doi
+    value: "10.5281/zenodo.24331605"
+    description: "v1.2.0"
+  - type: doi
+    value: "10.5281/zenodo.24302710"
+    description: "v1.1.0"
+  - type: doi
+    value: "10.5281/zenodo.24234986"
+    description: "v1.0.0"

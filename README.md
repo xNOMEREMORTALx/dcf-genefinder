@@ -1,6 +1,6 @@
 # DCF gene finder
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24302710.svg)](https://doi.org/10.5281/zenodo.24302710) (v1.1.0; v1.0.0: [10.5281/zenodo.24234986](https://doi.org/10.5281/zenodo.24234986))
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24234985.svg)](https://doi.org/10.5281/zenodo.24234985) (all versions; latest v1.2.0: [10.5281/zenodo.24331605](https://doi.org/10.5281/zenodo.24331605); v1.1.0: [10.5281/zenodo.24302710](https://doi.org/10.5281/zenodo.24302710); v1.0.0: [10.5281/zenodo.24234986](https://doi.org/10.5281/zenodo.24234986))
 
 
 A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm of protein-coding DNA. It needs only Python 3 and numpy, and runs on Android (Pydroid 3).
