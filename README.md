@@ -34,7 +34,7 @@ python3 dcf_secflag.py genome.gb pred.gff3    # selenocysteine candidates (upstr
 ```
 Cryptochrome reader (v1.2.0; needs numpy, `dcf_localalign.py`, `dcf_align.py`):
 ```
-python3 -c "import runpy; r = runpy.run_path('dcf_cryreader.py')['read']('MSEQ...'); print(r['best'], r.get('score'), r.get('tetrad'), r['call'])"
+python3 -c "import runpy; r = runpy.run_path('dcf_cryreader.py')['read']('MSEQ...'); print(r.get('best'), r.get('score'), r.get('tetrad'), r['call'])"
 ```
 It reports the family (six references), the TrpA–D electron chain, and the aromatic-TrpD marker. Blind: 40 of 40 confident (score ≥ 900) cryptochromes aromatic at TrpD in 11 animals (dcf-math L3785, L3797, L3805).
 Promoter self-check, blind set 6 (pre-registered): Firmicutes 1.59–3.78 (3/3 clear), proteobacteria 0.89–1.22 (0/4 clear); exact starts 74.5–94.1%.
