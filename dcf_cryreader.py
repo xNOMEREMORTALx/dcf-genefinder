@@ -1,4 +1,4 @@
-"""dcf_cryreader (L3801; vectorised traceback L3813; family rule L3825): read a protein's cryptochrome/photolyase family and its four-tryptophan electron chain (TrpA-D).
+"""dcf_cryreader (L3801; vectorised traceback L3813; family rule L3829): read a protein's cryptochrome/photolyase family and its four-tryptophan electron chain (TrpA-D).
 Gary NOMEREMORTAL Mason, Digital Cosmos Framework. Not for medical use.
 Method (frozen in L3777/L3781, blind-tested in L3785 and L3797):
   - the protein (400-900 aa) is scored by local alignment (dcf_localalign, BLOSUM62, gap 8) against six references;
@@ -53,7 +53,7 @@ def read(seq):
     mp, _ = sw_map(REFS['CRY4(robin)'], seq); t = ''.join(mp.get(POS[k], '-') for k in 'ABCD'); r['tetrad'] = t
     fam = 'cryptochrome / 6-4 photolyase' if best in CRY else 'DASH / DNA photolyase'; r['family'] = fam
     conf = v >= 900; arom = t[3] in 'WYF'
-    # L3825 reader update, family rule from L3809: TrpD aromatic -> cryptochrome-type chain; non-aromatic -> photolyase-type.
+    # L3829 reader update, family rule from L3809: TrpD aromatic -> cryptochrome-type chain; non-aromatic -> photolyase-type.
     # Record: 261 of 264 insect cryptochromes (PANTHER SF17) aromatic; 2,266 of 2,300 class I photolyases (SF18) non-aromatic;
     # 40 of 40 confident cryptochromes in 11 blind animals. Score only decides superfamily membership (>= 350).
     r['chain_type'] = 'cryptochrome-type' if arom else 'photolyase-type'
