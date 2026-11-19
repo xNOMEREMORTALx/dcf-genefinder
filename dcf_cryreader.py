@@ -1,4 +1,4 @@
-"""dcf_cryreader (L3801; vectorised traceback L3813): read a protein's cryptochrome/photolyase family and its four-tryptophan electron chain (TrpA-D).
+"""dcf_cryreader (L3801; vectorised traceback L3813; family rule L3825): read a protein's cryptochrome/photolyase family and its four-tryptophan electron chain (TrpA-D).
 Gary NOMEREMORTAL Mason, Digital Cosmos Framework. Not for medical use.
 Method (frozen in L3777/L3781, blind-tested in L3785 and L3797):
   - the protein (400-900 aa) is scored by local alignment (dcf_localalign, BLOSUM62, gap 8) against six references;
@@ -53,9 +53,13 @@ def read(seq):
     mp, _ = sw_map(REFS['CRY4(robin)'], seq); t = ''.join(mp.get(POS[k], '-') for k in 'ABCD'); r['tetrad'] = t
     fam = 'cryptochrome / 6-4 photolyase' if best in CRY else 'DASH / DNA photolyase'; r['family'] = fam
     conf = v >= 900; arom = t[3] in 'WYF'
-    if best in CRY:
-        r['call'] = ('%s, %s; TrpD = %s: %s' % (fam, 'confident' if conf else 'weak hit', t[3],
-                     'fits the marker (aromatic)' if arom else ('BREAKS the marker' if conf else 'non-aromatic, as seen in weak hits (L3785)')))
-    else:
-        r['call'] = '%s; TrpD = %s: %s' % (fam, t[3], 'aromatic - would be the first DASH/photolyase exception' if arom else 'non-aromatic, as expected')
+    # L3825 reader update, family rule from L3809: TrpD aromatic -> cryptochrome-type chain; non-aromatic -> photolyase-type.
+    # Record: 261 of 264 insect cryptochromes (PANTHER SF17) aromatic; 2,266 of 2,300 class I photolyases (SF18) non-aromatic;
+    # 40 of 40 confident cryptochromes in 11 blind animals. Score only decides superfamily membership (>= 350).
+    r['chain_type'] = 'cryptochrome-type' if arom else 'photolyase-type'
+    rule = ('cryptochrome-type chain (aromatic TrpD; rule right for 98.6% of 2,564 PANTHER-classified proteins)' if arom
+            else 'photolyase-type chain (non-aromatic TrpD, as in DNA-repair photolyases and CRY-DASH; rule right for 98.6% of 2,564 PANTHER-classified proteins)')
+    agree = (best in CRY) == arom
+    r['call'] = 'nearest %s (score %d, %s); TrpD = %s -> %s%s' % (best, v, 'strong' if conf else 'weak', t[3], rule,
+                 '' if agree else '; NOTE: nearest reference and TrpD disagree - check by tree or PANTHER')
     return r
