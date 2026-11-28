@@ -36,3 +36,7 @@
 | tools_dev/dcf_figurate_L4093.py | `a7a118a34e8ff7dfba2db9bfb9f31d7e9e96c52c7ef02d94ce8326482daaedce` |
 | tools_dev/dcf_pertri_L4001.py | `fe723d6e1d92595471e2b5a7ebe40ac7c2d36f95de1628c083a33b9a27912e99` |
 | tools_dev/dcf_grade_L4085_L4093.py | `c053a7ed299efa6c2ae979025d6ae14e822da871b55f834defd233060a5b2340` |
+| preregistrations/PREREGISTERED_L4097_sideband_calibration.txt | `cb6bb8696529c82cd3689ec94572d3de6d3eae9ea56e1b9c46e62d76be7d860c` |
+| tools_dev/dcf_visualmic.py | `7ed7aca4b9527c8b5e0e81206cc39003600e560eed5a7a52bf8e0795d8195c51` |
+| tools_dev/dcf_calib_L4097.py | `9c06b522957b8ce3c8627eea7c2795839c3cc5acdb9efbbfbca2c4e8f58400cf` |
+| tools_dev/dcf_grade_L4097.py | `8a84d0a82523253081c04ec7c3986db5a63c1deba9882ef192fc60fcbaa98657` |
