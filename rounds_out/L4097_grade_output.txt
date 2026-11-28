@@ -1,0 +1,8 @@
+true 0.65: energy err +0.0060, sideband err -0.0060
+true 0.7: energy err -0.0030, sideband err -0.0050
+true 0.85: energy err -0.0020, sideband err -0.0080
+true 0.95: energy err +0.0170, sideband err -0.0010
+S1 -> FAIL
+S2 -> FAIL
+S3 -> FAIL
+RESULT L4097: 0 of 3 pass
