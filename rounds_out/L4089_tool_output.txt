@@ -1,0 +1,6 @@
+DCF L4089 tool output
+SMIN noise 0.01 occluder 1 s_min 3
+SMIN noise 0.01 occluder 0 s_min 99
+SMIN noise 0.1 occluder 1 s_min 3
+SMIN noise 0.1 occluder 0 s_min 99
+END

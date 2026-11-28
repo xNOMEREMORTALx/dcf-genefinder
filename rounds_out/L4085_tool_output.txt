@@ -1,0 +1,6 @@
+DCF L4085 tool output
+CAL rf_true 0.6 coarse 0.5850 refined 0.5790 err_coarse -0.0150 err_refined -0.0210
+CAL rf_true 0.75 coarse 0.7300 refined 0.7310 err_coarse -0.0200 err_refined -0.0190
+CAL rf_true 0.8 coarse 0.8100 refined 0.8070 err_coarse +0.0100 err_refined +0.0070
+CAL rf_true 0.9 coarse 0.8900 refined 0.8900 err_coarse -0.0100 err_refined -0.0100
+END

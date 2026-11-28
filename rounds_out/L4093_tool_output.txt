@@ -1,0 +1,23 @@
+DCF L4093 tool output
+N 25 size 84 | tri O 0 E 0.00000 members [] | star O 0 E 0.00000 members [] | hex O 0 E 0.00000 members []
+N 26 size 165 | tri O 0 E 0.01022 members [] | star O 0 E 0.17822 members [] | hex O 0 E 0.00000 members []
+N 27 size 76 | tri O 0 E 0.05966 members [] | star O 0 E 0.00000 members [] | hex O 1 E 0.04227 members [333333333666666667]
+N 28 size 714 | tri O 0 E 0.60406 members [] | star O 0 E 0.10688 members [] | hex O 0 E 0.10711 members []
+N 29 size 93 | tri O 0 E 0.01576 members [] | star O 0 E 0.00000 members [] | hex O 0 E 0.00000 members []
+N 30 size 16167 | tri O 6 E 3.78651 members [861, 1953, 41041, 115921, 330891, 16230753] | star O 0 E 0.42597 members [] | hex O 5 E 5.02163 members [217, 14911, 21931, 912457, 33333333336666666667]
+N 31 size 21 | tri O 0 E 0.00143 members [] | star O 0 E 0.00000 members [] | hex O 1 E 1.04913 members [2791]
+N 32 size 5952 | tri O 0 E 0.35884 members [] | star O 0 E 0.02890 members [] | hex O 0 E 0.02185 members []
+N 33 size 111 | tri O 0 E 0.00002 members [] | star O 0 E 0.00000 members [] | hex O 1 E 0.00189 members [3333333333366666666667]
+N 34 size 177 | tri O 0 E 0.00361 members [] | star O 0 E 0.00000 members [] | hex O 0 E 0.00000 members []
+N 35 size 363 | tri O 0 E 0.05367 members [] | star O 0 E 0.00138 members [] | hex O 0 E 0.02554 members []
+N 36 size 4288 | tri O 1 E 0.11685 members [2469753] | star O 0 E 0.02228 members [] | hex O 1 E 0.06537 members [333333333333666666666667]
+N 37 size 21 | tri O 0 E 0.00000 members [] | star O 0 E 0.00000 members [] | hex O 0 E 0.00000 members []
+N 38 size 15 | tri O 0 E 0.00000 members [] | star O 0 E 0.00000 members [] | hex O 0 E 0.00000 members []
+N 39 size 99 | tri O 1 E 0.59816 members [1431] | star O 0 E 0.00000 members [] | hex O 1 E 0.00000 members [33333333333336666666666667]
+N 40 size 5724 | tri O 0 E 0.02115 members [] | star O 0 E 0.33627 members [] | hex O 0 E 0.00263 members []
+N 16 size 144 | tri O 3 E 1.90326 members [153, 561, 5151] | star O 0 E 0.00004 members [] | hex O 0 E 0.33459 members []
+N 24 size 1756 | tri O 3 E 1.37080 members [2701, 37401, 862641] | star O 1 E 0.30531 members [35113] | hex O 1 E 0.22478 members [3333333366666667]
+GATE tri membership_exact 1
+GATE star membership_exact 1
+GATE hex membership_exact 1
+END
