@@ -1,0 +1,2 @@
+SELFTEST2 k 50 planted_detected 14/20 matched_false_pos 13/100 mean_zlength_gap 0.0740
+SELFTEST2 k 10 planted_detected 14/20 matched_false_pos 13/100 mean_zlength_gap 0.0224

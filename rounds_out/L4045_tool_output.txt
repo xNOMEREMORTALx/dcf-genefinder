@@ -1,0 +1,21 @@
+DCF L4045 tool output
+NEURON HH peak 30.10 fired 1 fwhm_ms 0.3660 eqw_ms 0.4318
+NEURON slowK peak 42.09 fired 1 fwhm_ms 0.6100 eqw_ms 0.6722
+EDGE sigma_global_px 0.04357 sigma_row_px 0.20467 gain 0.8653
+EDGE_THR HH full global single_nm 138.389 avg10000_nm 1.2703
+EDGE_THR HH full rolling single_nm 55.023 avg10000_nm 0.5500
+EDGE_THR HH short global single_nm 119.888 avg10000_nm 0.3723
+EDGE_THR HH short rolling single_nm 16.987 avg10000_nm 0.1714
+TEXTURE sigma_global_px 0.00525 sigma_row_px 0.03086
+SHAPE HH short rolling eqw_ms 0.6384
+SHAPE slowK short rolling eqw_ms 0.7016
+SHAPE_RATIO short rolling slowK/HH 1.0990
+SHAPE HH full global eqw_ms 2.2012
+SHAPE slowK full global eqw_ms 2.0722
+SHAPE_RATIO full global slowK/HH 0.9414
+DCF Visual Microphone - tremor mode (not for medical use)
+self-test  30 fps: 0.05-pixel 9.30 Hz motion -> peak 9.30 Hz  MATCH
+self-test  60 fps: 0.05-pixel 9.30 Hz motion -> peak 9.30 Hz  MATCH
+self-test 240 fps: 0.05-pixel 9.30 Hz motion -> peak 9.30 Hz  MATCH
+TREMOR_SELFTEST PASS
+END
