@@ -1,0 +1,5 @@
+C1 empirical false pos 6/100 (>=8) -> FAIL
+C2 adjusted false pos 8/100 (<=8) -> PASS
+C3 adjusted power 15/20 (>=10) -> PASS
+RESULT L4053: 2 of 3 pass
+descriptive: pooled k=50 false positives over three independent seeds 32/300 = 10.7%; binomial P(X>=32|5%) = 5.43e-05
