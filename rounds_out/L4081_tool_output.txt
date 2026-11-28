@@ -1,0 +1,6 @@
+DCF L4081 tool output
+COND occluder 0 cond 8.5760e+16 effective_rank_1pct 3
+COND occluder 1 cond 2.4321e+12 effective_rank_1pct 29
+ERR noise 0.01 no_occluder 0.2424 occluder 0.2003 ratio 1.210
+ERR noise 0.1 no_occluder 0.3075 occluder 0.2953 ratio 1.041
+END

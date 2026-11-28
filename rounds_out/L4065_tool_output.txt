@@ -1,0 +1,6 @@
+DCF L4065 tool output
+K1 tone 1530 rf_true 0.9 rf_calibrated 0.890
+K2 tone 1530 rf_true 0.75 rf_calibrated 0.730
+K3 second video 1130 Hz analysed with rf 0.730 peak_hz 1130.15
+W median_ref masked 0.9860 unmasked 0.9820 | single_ref masked 0.7077 unmasked 0.7145
+END

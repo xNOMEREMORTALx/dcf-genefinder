@@ -1,0 +1,1 @@
+SELFTEST4 k 50 null_reps 200 false_pos_upper 8 false_pos_lower 5 mean_zlength_gap 0.0724

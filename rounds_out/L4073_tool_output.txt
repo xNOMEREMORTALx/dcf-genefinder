@@ -1,0 +1,6 @@
+DCF L4073 tool output - NC_000932
+FS e 0 seed 4073 ran 1 reported 1 inside_cds 0 hits150 0 reported_true150 0 est 21 lo 5 hi 37
+FS e 0.001 seed 4073 ran 1 reported 2 inside_cds 59 hits150 2 reported_true150 2 est 11 lo 0 hi 23
+FS e 0.001 seed 4074 ran 1 reported 2 inside_cds 56 hits150 2 reported_true150 2 est 12 lo 0 hi 24
+FS e 0.001 seed 4075 ran 1 reported 2 inside_cds 46 hits150 2 reported_true150 2 est 19 lo 4 hi 34
+END
