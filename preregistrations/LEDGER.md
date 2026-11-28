@@ -17,3 +17,7 @@
 | tools_dev/dcf_grade_L4037_L4049.py | `5316b00379fa29d635b04c4e1ad2da5b8dc7618fb7363f5a3b7be0e46b83ee75` |
 | preregistrations/PREREGISTERED_L4053_anchor_pool_variance.txt | `14b9ac568e7feb201cf9abdbb8377a730b1b9421d90fa5e8588f13cde7bb48ca` |
 | dcf_anchor.py (L4053) | `d06606a1d5dbc4d44dda3e2382aa143cc8ff53157debbc222cfbc0afe482682d` |
+| preregistrations/PREREGISTERED_L4057_L4061_environment_filters.txt | `9d8e28d577c2e4b0cdad184ea3e637c6907f493cbb512bf4e6677732ef60db42` |
+| tools_dev/dcf_envfilter_L4057.py | `93e90b86d3fd1cd96c1311d1f9af8975843eb1c8b302ed5f160338e79efb45d7` |
+| tools_dev/dcf_subframe_L4061.py | `7abd50010625230c7986e423a45aa18830b32aa8e130a8029ce779bcccd2a28d` |
+| tools_dev/dcf_grade_L4057_L4061.py | `7cc13321f47c5f5a0c9a71bcafa4229fb8fa0d3859f847080f3d2c3c2cdb1bea` |

@@ -1,0 +1,25 @@
+PRE-REGISTRATION L4057 + L4061 (Gary, 27 Nov 2026: "simulated sound filter or visual filter ... small room or pipe ... pull fringe
+information from the audio or video"; "find a frame before based on photon movement"). Frozen and pushed before running.
+Gary NOMEREMORTAL Mason. Scripts tools_dev/dcf_envfilter_L4057.py (seed 4057), tools_dev/dcf_subframe_L4061.py (seed 4061);
+grader tools_dev/dcf_grade_L4057_L4061.py.
+L4057 model: 8 kHz audio. Small room 3 x 4 x 2.5 m, image-source impulse response (reflection 0.7 per bounce, order 8).
+Pipe 1 m closed-open, modal filter, resonances (2n-1)c/4L, Q 30, pressure gain Q/(2n-1) at resonance (model assumption).
+White sensor noise is added AFTER the environment (the microphone's own noise).
+ Gate G (theory check, must hold or the round is void): filtering cannot create information: Wiener dereverberation followed by a
+   dry matched filter never beats the environment-aware matched filter (difference <= +0.01 dB).
+ A1 dereverberation: for speech-like bursts at 20 dB SNR, Wiener deconvolution with the known room response raises the
+    correlation with the dry source by >= 0.20 over the raw recording.
+ A2 environment-aware matched filter (template = the room's own echo of the chirp) beats the dry template by >= 3 dB.
+ A3 the pipe as a pre-amplifier: a tone ON the first resonance needs >= 10 dB less source level than a tone OFF resonance
+    (2 x f1), and >= 10 dB less than the same tone with no pipe.
+L4061 model: synthetic video, 240 fps, 120 rows read over 0.9 of the frame period (rolling shutter), 0.3-px sideways vibration,
+2 DN noise, 2 s; the real dcf_visualmic.measure() with ROLLING on/off (first test of the ROLLING mode, flagged "untested" in H4).
+ R1 rolling mode: strongest peak (>= 20 Hz) within +-3 Hz of a 530 Hz vibration (above the 120 Hz frame Nyquist), and the
+    recovered waveform correlates with the true motion at |r| >= 0.8 ("what happened between frames").
+ R2 global mode on the same video: strongest peak within +-3 Hz of the alias |530 - 2 x 240| = 50 Hz.
+ R3 rolling mode: 1,530 Hz recovered within +-3 Hz.
+ R4 calibration matters: analysing the 1,530 Hz video with the row timing mis-set (0.8 instead of 0.9) puts the strongest
+    peak outside +-3 Hz of 1,530.
+Fixed interpretation: G + A1-A3 -> environment knowledge helps by SHAPE (dereverberation) and by DETECTION templates, a resonator
+is a physical pre-amplifier at its modes only, and no software filter adds information. R1-R3 -> the rolling shutter recovers
+sub-frame motion far above the frame Nyquist; R4 -> the row timing must be calibrated per phone. Failures stand.
