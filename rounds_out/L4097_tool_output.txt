@@ -1,0 +1,6 @@
+DCF L4097 tool output
+CAL rf_true 0.65 energy 0.6560 sideband 0.6440 err_energy +0.0060 err_sideband -0.0060
+CAL rf_true 0.7 energy 0.6970 sideband 0.6950 err_energy -0.0030 err_sideband -0.0050
+CAL rf_true 0.85 energy 0.8480 sideband 0.8420 err_energy -0.0020 err_sideband -0.0080
+CAL rf_true 0.95 energy 0.9670 sideband 0.9490 err_energy +0.0170 err_sideband -0.0010
+END
