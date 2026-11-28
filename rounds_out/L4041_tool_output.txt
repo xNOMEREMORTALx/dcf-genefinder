@@ -1,0 +1,12 @@
+DCF L4041 tool output - NC_000932, 154478 bp
+RUN e 0 seed 4041 table 11 npred 179 found 78.57 correct 31.28 exact 59.26 errors 0 indels 0 indels_in_cds 0 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.0001 seed 4041 table 11 npred 187 found 80.00 correct 33.16 exact 52.83 errors 11 indels 11 indels_in_cds 8 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.0001 seed 4042 table 11 npred 181 found 80.00 correct 31.49 exact 60.00 errors 7 indels 7 indels_in_cds 1 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.0001 seed 4043 table 11 npred 187 found 77.14 correct 32.09 exact 53.70 errors 10 indels 10 indels_in_cds 4 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.001 seed 4041 table 11 npred 233 found 72.86 correct 39.06 exact 48.89 errors 121 indels 121 indels_in_cds 63 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.001 seed 4042 table 11 npred 217 found 68.57 correct 36.87 exact 40.00 errors 108 indels 108 indels_in_cds 48 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.001 seed 4043 table 11 npred 220 found 70.00 correct 37.73 exact 42.55 errors 115 indels 115 indels_in_cds 47 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.005 seed 4041 table 11 npred 321 found 50.00 correct 46.42 exact 12.50 errors 595 indels 595 indels_in_cds 269 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.005 seed 4042 table 11 npred 313 found 47.14 correct 46.33 exact 20.00 errors 575 indels 575 indels_in_cds 259 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+RUN e 0.005 seed 4043 table 11 npred 294 found 40.00 correct 45.24 exact 22.58 errors 586 indels 586 indels_in_cds 239 fs_reported NA fs_hits 0 fs_est NA fs_lo NA fs_hi NA
+END

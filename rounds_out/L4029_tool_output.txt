@@ -1,0 +1,21 @@
+DCF L4029 tool output - neuron visual microphone feasibility
+CALIB sigma_global_px 0.00508 sigma_row_px 0.02851 rows 120
+G1 gain 0.9918 resid_px 0.00556 ratio_to_sigma 1.0940
+NEURON HH rest -65.00 peak 30.10 fired 1 halfwidth_ms 0.3660
+NEURON fastK rest -65.00 peak -4.44 fired 0 halfwidth_ms 0.4040
+THR HH full global single_nm 15.582 avg1000_nm 0.4785 avg10000_nm 0.1482 pdet_1nm 0.01488 pdet_3nm 0.03181
+THR HH full rolling single_nm 7.667 avg1000_nm 0.2429 avg10000_nm 0.0765 pdet_1nm 0.02155 pdet_3nm 0.07849
+THR HH short global single_nm 12.849 avg1000_nm 0.1476 avg10000_nm 0.0507 pdet_1nm 0.03155 pdet_3nm 0.12512
+THR HH short rolling single_nm 2.390 avg1000_nm 0.0759 avg10000_nm 0.0237 pdet_1nm 0.08913 pdet_3nm 0.70923
+THR fastK full global single_nm 12.108 avg1000_nm 0.3766 avg10000_nm 0.1205 pdet_1nm 0.01644 pdet_3nm 0.04049
+THR fastK full rolling single_nm 6.125 avg1000_nm 0.1941 avg10000_nm 0.0613 pdet_1nm 0.02579 pdet_3nm 0.11764
+THR fastK short global single_nm 20.831 avg1000_nm 0.1437 avg10000_nm 0.0400 pdet_1nm 0.03660 pdet_3nm 0.15923
+THR fastK short rolling single_nm 2.284 avg1000_nm 0.0729 avg10000_nm 0.0232 pdet_1nm 0.09632 pdet_3nm 0.75384
+STA HH full global amp_x_thr 10 halfwidth_ms 1.6500
+STA fastK full global amp_x_thr 10 halfwidth_ms 1.7500
+STA_RATIO full HH/fastK 0.9429
+STA HH short global amp_x_thr 10 halfwidth_ms 0.5500
+STA fastK short global amp_x_thr 10 halfwidth_ms 0.6000
+STA_RATIO short HH/fastK 0.9167
+NEED sigma_global_px_for_single_3nm 0.001186 (now 0.00508; factor 4.3)
+END
