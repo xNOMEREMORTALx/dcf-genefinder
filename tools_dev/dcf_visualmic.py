@@ -42,7 +42,8 @@ MAX_WIDTH = 320           # frames are shrunk to this width for speed
 MAX_FRAMES = 4000         # stop after this many frames
 ROLLING = False           # experimental rolling-shutter mode
 ROW_FRACTION = 0.9        # fraction of the frame period spent reading rows (rolling mode)
-REF_FRAMES = 1            # L4065: >1 = reference is the median of the first REF_FRAMES frames (removes rolling skew of frame 0)
+REF_FRAMES = 31           # L4065: rolling mode uses the median of the first 31 frames as reference (waveform r 0.71 -> 0.99)
+CALIBRATE_TONE_HZ = 0     # L4065: rolling mode only; a KNOWN tone in this video -> set ROW_FRACTION automatically (0 = off)
 # ===========================================================================
 
 TREMOR_BAND = (3.0, 15.0)  # Hz searched in tremor mode
@@ -191,7 +192,12 @@ LAST_ROLL = None
 def measure(frames):
     global LAST_ROLL
     if ROLLING:
+        global ROW_FRACTION
         R = rolling_rows(frames)
+        if CALIBRATE_TONE_HZ:
+            ROW_FRACTION = calibrate_row_fraction(R, CAPTURE_FPS, CALIBRATE_TONE_HZ)
+            print("row timing calibrated from the %.1f Hz tone: ROW_FRACTION = %.3f (reuse this value for later videos from this phone)"
+                  % (CALIBRATE_TONE_HZ, ROW_FRACTION))
         x, rate, grid, mask = resample_rows(R, CAPTURE_FPS, ROW_FRACTION)
         LAST_ROLL = (grid, mask)
         return x, rate
