@@ -1,0 +1,21 @@
+PRE-REGISTRATION L4045 (follow-up to L4029, which was VOID: gate G2 failed because the 4x-fast K+ variant did not fire).
+Disclosed: L4029's HH-variant numbers HAVE been seen (textured scene: single-spike threshold 15.6 nm, 10,000-spike 0.15 nm;
+rolling + short exposure ~5x better than global + short). This round asks only questions those numbers do not answer.
+Frozen and pushed before running. Gary NOMEREMORTAL Mason, 27 November 2026. Script tools_dev/dcf_neurovm_L4045.py (imports
+the frozen L4029 module unchanged), grader tools_dev/dcf_grade_L4045.py, seed 4045. Not for medical use.
+New K+ contrast (development check of firing only, no detection computed): "slowK" = K+ gating 4x slower (kfac 0.25; a slow
+delayed rectifier), fires, FWHM 0.61 ms vs HH 0.37 ms. Shape measure fixed now: equivalent width = area of the positive lobe
+within +-2 ms of the peak / peak height (replaces L4029's noise-fragile half-max walk).
+ V1 realistic cell-edge scene (one smooth membrane edge, 10 DN contrast, flat elsewhere, 2 DN noise): global + full-exposure
+    single-spike threshold > 155.8 nm (more than 10x the textured scene's 15.58 nm) AND its 10,000-spike threshold > 3 nm.
+ V2 cell-edge scene: rolling + short exposure threshold < 0.5 x global + short exposure threshold (replicates L4029's
+    rolling advantage on a new scene).
+ V3 textured scene, rolling + short exposure, 1,000-spike equivalent-time STA at 10x its 1,000-spike threshold: recovered
+    equivalent-width ratio slowK/HH within 25% of the true ratio (K+ channel speed readable from shape).
+ V4 textured scene, global + full exposure (1/240 s), same averaging: recovered equivalent width >= 3 ms for both variants.
+ V5 phone tremor mode (new in dcf_visualmic.py, MODE "tremor"): self-test recovers a 0.05-pixel 9.30 Hz motion within
+    +-0.2 Hz at 30, 60 and 240 fps (2 DN noise, 10 s).
+Gate: cell-edge pipeline gain 0.8-1.2 (else V1/V2 void).
+Fixed interpretation: V1 pass -> on real cell images a phone microscope cannot see impulses; V3+V4 pass -> design rule: short
+exposure with dense (rolling) sampling, not frame rate, makes K+ channel speed readable; V5 pass -> tremor mode ships as phone
+menu 38. Failures stand.

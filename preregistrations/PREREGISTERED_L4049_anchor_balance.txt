@@ -1,0 +1,12 @@
+PRE-REGISTRATION L4049 (follow-up to L4037, which passed 1 of 3: matched test 13/100 false positives, power 16/20).
+Hypothesis: members drawn from the tail of the length distribution get controls that are systematically shorter (residual
+covariate gap), which leaks the confounder; fewer neighbours (k = 10) shrink the gap. Frozen and pushed before running.
+Gary NOMEREMORTAL Mason, 27 November 2026. Tool dcf_anchor.py --selftest2 (seed 4049; same synthetic design as L4037; k = 50 and
+k = 10 on identical replicates; 20 planted + 100 null; 2,000 sets). The tool now also prints the balance diagnostic.
+ B1 k = 50 again shows the problem: false positives >= 8/100.
+ B2 k = 10: false positives <= 8/100.
+ B3 k = 10: power >= 16/20.
+ B4 mechanism: mean z-length gap (members minus controls) is >= 0.05 at k = 50, and k = 10 reduces it by >= 50%.
+Consequence fixed now: if B2-B4 pass, dcf_anchor's default becomes k = 10 for new work and Manuscript 3's real-data results are
+re-run at k = 10 as a sensitivity analysis (frozen numbers unchanged; reported side by side). In real data longer genes sit at
+anchors LESS (L3853), so a k = 50 gap there would bias AGAINST the K+ excess; L4013 will print the real gap. Failures stand.

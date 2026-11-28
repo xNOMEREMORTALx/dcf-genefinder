@@ -1,0 +1,13 @@
+rate | runs | found | correct | exact start | predicted genes | tables
+0 | 1 | 78.57 | 31.28 | 59.26 | 179.0 | 11
+0.0001 | 3 | 79.05 | 32.25 | 55.51 | 185.0 | 11,11,11
+0.001 | 3 | 70.48 | 37.89 | 43.81 | 223.3 | 11,11,11
+0.005 | 3 | 45.71 | 46.00 | 18.36 | 309.3 | 11,11,11
+LR0 baseline found 78.57%, table 11 -> PASS
+LR1 drop -0.48 -> PASS
+LR2 drop 8.09 -> PASS
+LR3 drop 32.86 -> PASS
+LR4 309.3 vs 179 -> PASS
+LR5 code call -> PASS
+LR6 detector printed no estimate -> FAIL
+RESULT L4041: 6 of 7 pass

@@ -8,3 +8,10 @@
 | preregistrations/PREREGISTERED_L4041_longread_errors.txt | `8e29ff351593f23504f916b93c3635f6b9934c7f6d89f5e85fe1d952d68c429c` |
 | tools_dev/dcf_longread_L4041.py | `3bb8c0fd6763bda172ec1c512e8702a1d2a4214cfc37f852b4e47fc889f8f105` |
 | tools_dev/dcf_grade_L4041.py | `dffab6994c561e81bc4d7e8b0fd8df33749cb35f4e3fa2c58979f681b10ebdc1` |
+| tools_dev/dcf_visualmic.py | `3ff082fcf8ab9b99f5f2a337fa58bda372683a7285a3ccb1c1b39bb3b9698cd2` |
+| preregistrations/PREREGISTERED_L4045_neuron_visualmic2.txt | `10f0edd1a2cbd7a95f5c9951938337700411e40a617197b5e4b95125a62a307d` |
+| tools_dev/dcf_neurovm_L4045.py | `bf8e5cb46c738bdcac962b56af55dfd06680b54387d53194e7dea73a60b036b2` |
+| tools_dev/dcf_grade_L4045.py | `80fd5b21b09b0f2876e670ad0abf91808ecb71bcd18da38e397c79d64c5af3ed` |
+| preregistrations/PREREGISTERED_L4049_anchor_balance.txt | `ab405479512d707329513a49393e1d13fb202b4ebe7ce2d0ad0e1347f5305ad6` |
+| dcf_anchor.py | `fd28e5b0a9028369dfcd580a3022dbc2b6f669012faf98b58e0dbea3160eb6d1` |
+| tools_dev/dcf_grade_L4037_L4049.py | `5316b00379fa29d635b04c4e1ad2da5b8dc7618fb7363f5a3b7be0e46b83ee75` |

@@ -1,0 +1,11 @@
+G1 pipeline gain 0.9918, noise ratio 1.0940 -> PASS
+G2 neurons fire; halfwidth HH 0.366 ms, fastK 0.404 ms -> FAIL
+  HH: single full-global 15.6 nm; 10k-avg 0.148 nm; pdet(1nm) 0.0149; rolling/global short 0.19
+  fastK: single full-global 12.1 nm; 10k-avg 0.120 nm; pdet(1nm) 0.0164; rolling/global short 0.11
+N1 single 1 nm detection <= 5% -> PASS
+N2 single-spike threshold 20-1000 nm -> FAIL
+N3 10k-spike threshold > 3 nm -> FAIL
+N4 full-exposure STA halfwidth >= 4 ms both: HH 1.65 fastK 1.75 -> FAIL
+N5 short-exposure ratio recovered 0.917 vs true 0.906 (within 25%) -> PASS
+N6 rolling vs global within 2x -> FAIL
+RESULT L4029: 2 of 6 pass (VOID: gate failed)

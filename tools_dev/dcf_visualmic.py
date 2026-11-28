@@ -30,7 +30,7 @@ THE ONE RULE THAT DECIDES SUCCESS (Nyquist)
 """
 
 # ============================== SETTINGS ===================================
-MODE = "video"            # "video" = analyse VIDEO_PATH ; "selftest" = synthetic check
+MODE = "video"            # "video" | "selftest" | "tremor" (3-15 Hz body/hand motion) | "tremorselftest"
 VIDEO_PATH = ""           # e.g. "/storage/emulated/0/DCIM/Camera/VID_20261124_221500.mp4"
                           # leave "" to use the newest video in VIDEO_DIR
 VIDEO_DIR = "/storage/emulated/0/DCIM/Camera"
@@ -44,6 +44,7 @@ ROLLING = False           # experimental rolling-shutter mode
 ROW_FRACTION = 0.9        # fraction of the frame period spent reading rows (rolling mode)
 # ===========================================================================
 
+TREMOR_BAND = (3.0, 15.0)  # Hz searched in tremor mode
 import os, sys, wave, math
 import numpy as np
 
@@ -242,6 +243,34 @@ def plot(f, X, path, title):
     return True
 
 
+def tremor_peak(x, rate, band=None):
+    """Dominant frequency inside the tremor band, refined by parabolic interpolation of the spectrum peak."""
+    lo, hi = band or TREMOR_BAND
+    n = len(x); X = np.abs(np.fft.rfft((x - x.mean()) * np.hanning(n))); f = np.fft.rfftfreq(n, 1.0 / rate)
+    sel = np.where((f >= lo) & (f <= min(hi, rate / 2)))[0]
+    if len(sel) == 0:
+        return None
+    k = sel[np.argmax(X[sel])]
+    if 0 < k < len(X) - 1:
+        a, b, c = X[k - 1], X[k], X[k + 1]; d = 0.5 * (a - c) / (a - 2 * b + c) if (a - 2 * b + c) != 0 else 0.0
+        return float(f[k] + d * (f[1] - f[0]))
+    return float(f[k])
+
+
+def tremor_selftest_frames(freq, fps, seconds=10.0, amp_px=0.05, noise_dn=2.0, seed=7):
+    rng = np.random.default_rng(seed); h, w = 120, 160
+    base = rng.random((h, w * 2)).astype(np.float32)
+    if cv2 is not None:
+        base = cv2.GaussianBlur(base, (0, 0), 2.0)
+    xs = np.arange(w * 2, dtype=np.float32)
+    for k in range(int(seconds * fps)):
+        d = amp_px * math.sin(2 * math.pi * freq * k / fps)
+        img = np.empty((h, w), np.float32)
+        for r in range(h):
+            img[r] = np.interp(np.arange(w) + 40 - d, xs, base[r])
+        yield np.clip(np.round(img * 255 + rng.normal(0, noise_dn, img.shape)), 0, 255).astype(np.uint8)
+
+
 def newest_video(folder):
     vids = [os.path.join(folder, n) for n in os.listdir(folder)
             if n.lower().endswith((".mp4", ".mov", ".3gp", ".mkv", ".avi"))]
@@ -252,6 +281,8 @@ def newest_video(folder):
 
 def run(mode=MODE):
     global CAPTURE_FPS
+    if mode in ("tremor", "tremorselftest"):
+        return run_tremor(mode)
     out_dir = OUT_DIR if os.path.isdir(OUT_DIR) else os.getcwd()
     lines = ["DCF Visual Microphone report", "mode: %s%s" % (mode, " (rolling)" if ROLLING else "")]
     if mode == "selftest":
@@ -282,6 +313,29 @@ def run(mode=MODE):
         fh.write("\n".join(lines) + "\n")
     print("\n".join(lines))
     return ok
+
+
+def run_tremor(mode):
+    """Neuron-driven motion a phone CAN see: tremor of a hand or finger resting on a card (motor-unit firing shows up as
+    3-15 Hz movement). Film the card held still, phone on a stand. NOT FOR MEDICAL USE: this is a physics demo, not a test."""
+    global CAPTURE_FPS
+    lines = ["DCF Visual Microphone - tremor mode (not for medical use)"]
+    if mode == "tremorselftest":
+        ok_all = True
+        for fps in (30, 60, 240):
+            CAPTURE_FPS = fps
+            x, rate = measure(tremor_selftest_frames(9.3, fps))
+            pk = tremor_peak(clean(x, rate), rate)
+            ok = pk is not None and abs(pk - 9.3) <= 0.2; ok_all &= ok
+            lines.append("self-test %3d fps: 0.05-pixel 9.30 Hz motion -> peak %.2f Hz  %s" % (fps, pk or -1, "MATCH" if ok else "no match"))
+        print("\n".join(lines)); return ok_all
+    path = VIDEO_PATH or newest_video(VIDEO_DIR)
+    x, rate = measure(frames_from_video(path)); x = clean(x, rate)
+    pk = tremor_peak(x, rate)
+    lines.append("video: " + path)
+    lines.append("dominant motion frequency in %.0f-%.0f Hz: %s" % (TREMOR_BAND[0], TREMOR_BAND[1], "%.2f Hz" % pk if pk else "none (band above Nyquist?)"))
+    lines.append("motion size (rms): %.4f pixels" % float(np.sqrt(np.mean(x ** 2))))
+    print("\n".join(lines)); return pk
 
 
 if __name__ == "__main__":

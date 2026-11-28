@@ -98,7 +98,8 @@ def matched_test(Hm, members, pool, zl, zd, nsets=10000, seed=4037, k=50):
     C = np.array([pool[np.argsort(np.hypot(zl[pool] - zl[i], zd[pool] - zd[i]), kind='stable')[:k]] for i in members])
     rng = np.random.default_rng(seed); obs = Hm[members].mean()
     null = np.array([Hm[C[np.arange(len(C)), rng.integers(0, k, len(C))]].mean() for _ in range(nsets)])
-    return dict(n=len(members), obs=obs, mean=null.mean(), sd=null.std(), excess=obs - null.mean(),
+    bal = (float(zl[members].mean() - zl[C].mean()), float(zd[members].mean() - zd[C].mean()))   # residual covariate gap
+    return dict(n=len(members), obs=obs, mean=null.mean(), sd=null.std(), excess=obs - null.mean(), balance=bal,
                 p_upper=(1 + (null >= obs).sum()) / (nsets + 1), p_lower=(1 + (null <= obs).sum()) / (nsets + 1))
 
 def naive_test(Hm, members, pool, nsets=10000, seed=4037):
@@ -138,9 +139,29 @@ def selftest(reps_power=20, reps_null=100, nsets=2000):
           % (power, reps_power, cal, reps_null, naive_fp, reps_null))
     return power, cal, naive_fp
 
+def selftest2(seed=4049, reps_power=20, reps_null=100, nsets=2000, ks=(50, 10)):
+    """L4049: same synthetic design as L4037, fresh seed; compares neighbour counts k on identical replicates and reports
+    the residual covariate gap (members minus controls, in SD units of z log length)."""
+    rng = np.random.default_rng(seed)
+    pw = {k: 0 for k in ks}; fp = {k: 0 for k in ks}; gap = {k: [] for k in ks}
+    for r in range(reps_power + reps_null):
+        G, zl, zd, base = synthetic(rng)
+        members = rng.choice(np.where(zl > 1.0)[0], 60, replace=False)
+        p = base.copy(); planted = r < reps_power
+        if planted: p[members] = np.minimum(1, p[members] + 0.15)
+        H = (rng.random(len(G)) < p).astype(float); pool = np.setdiff1d(np.arange(len(G)), members)
+        s0 = int(rng.integers(1 << 30))
+        for k in ks:
+            res = matched_test(H, members, pool, zl, zd, nsets=nsets, seed=s0, k=k); gap[k].append(res['balance'][0])
+            if planted: pw[k] += res['p_upper'] < 0.01
+            else: fp[k] += res['p_upper'] < 0.05
+    for k in ks:
+        print("SELFTEST2 k %d planted_detected %d/%d matched_false_pos %d/%d mean_zlength_gap %.4f"
+              % (k, pw[k], reps_power, fp[k], reps_null, float(np.mean(gap[k]))))
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('--selftest', action='store_true')
+    ap.add_argument('--selftest', action='store_true'); ap.add_argument('--selftest2', action='store_true'); ap.add_argument('--k', type=int, default=50)
     ap.add_argument('--gtf'); ap.add_argument('--genes'); ap.add_argument('--genes-file'); ap.add_argument('--regex')
     ap.add_argument('--loops', nargs='+'); ap.add_argument('--format', default='top', choices=['top', '4dn', 'all'])
     ap.add_argument('--ref', nargs='*'); ap.add_argument('--mode', choices=['both', 'none'])
@@ -148,6 +169,8 @@ def main():
     a = ap.parse_args()
     if a.selftest:
         selftest(); return
+    if a.selftest2:
+        selftest2(); return
     G = gene_table(a.gtf); names = [g[3] for g in G]; zl, zd = covariates(G)
     if a.regex: want = {n for n in names if re.match(a.regex, n)}
     else:
@@ -160,10 +183,11 @@ def main():
     for p in a.loops:
         A = anchors_of(read_loops(p, a.format), ov, a.mode); Hs.append(hits(G, A).astype(float))
         print('map %s anchor share (all genes) %.4f' % (p, Hs[-1].mean()))
-    r = matched_test(np.mean(Hs, axis=0), members, pool, zl, zd, a.sets, a.seed)
+    r = matched_test(np.mean(Hs, axis=0), members, pool, zl, zd, a.sets, a.seed, a.k)
     print('genes %d (missing from GTF: %s)' % (r['n'], ','.join(sorted(want - set(names))) or 'none'))
     print('T_obs %.4f null mean %.4f sd %.4f excess %+.4f p_upper %.4f p_lower %.4f'
           % (r['obs'], r['mean'], r['sd'], r['excess'], r['p_upper'], r['p_lower']))
+    print('balance (members minus matched controls, SD units): z log length %+.3f, z log density %+.3f' % r['balance'])
 
 if __name__ == '__main__':
     main()
