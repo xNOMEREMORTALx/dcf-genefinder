@@ -1,0 +1,24 @@
+L4065: K1 0.89 K2 0.73 K3 1130.15 Hz; W median+mask 0.9860, single+mask 0.7077
+L4069: upper 8/200, lower 5/200, gap 0.0724
+L4073: recall 3.7% (6/161) vs interval 1-27%; precision 6/6; error-free reports [1]
+L4081: cond ratio 3.53e+04; 1% err 0.242 -> 0.200; 10% ratio 1.04
+K1 -> PASS
+K2 -> FAIL
+K3 -> PASS
+W1 -> PASS
+W2 -> PASS
+D1 -> PASS
+D2 -> FAIL
+D3 -> PASS
+F1 -> PASS
+F2 -> PASS
+F3 -> PASS
+F4 -> PASS
+P1 -> PASS
+P2 -> FAIL
+P3 -> PASS
+P4 -> FAIL
+RESULT L4065: 4 of 5 pass
+RESULT L4069: 2 of 3 pass
+RESULT L4073: 4 of 4 pass
+RESULT L4081: 2 of 4 pass
