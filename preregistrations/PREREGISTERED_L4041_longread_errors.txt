@@ -1,0 +1,27 @@
+PRE-REGISTRATION L4041 (H3 [Long reads]): how does the DCF gene finder (v2.32, unchanged) behave on error-rich long-read-style
+assemblies, and does its built-in frameshift detector (L2736-L2739) find the errors at the rate it claims?
+Frozen and pushed before the gene finder was run on this genome. Gary NOMEREMORTAL Mason, 27 November 2026.
+Script tools_dev/dcf_longread_L4041.py; grader tools_dev/dcf_grade_L4041.py; seeds 4041, 4042, 4043 (three replicates per rate).
+
+Data (offline; NCBI is not reachable from the session): NC_000932, Arabidopsis thaliana chloroplast, 154,478 bp, circular,
+85 CDS features (simple, non-join CDS are graded, as in dcf_grade.py), taken from the Biopython 1.84 source distribution
+(Tests/GenBank/NC_000932.gb, file MD5 begins 6edad8bf16). Identified by its LOCUS line. Unseen: not in seen_accessions.txt;
+only the A. thaliana MITOCHONDRION is in seen_names.txt. Organelle genome, bacterial code (table 11), AT-rich.
+Error model (nanopore-like residual assembly errors): per-base rate e in {0, 1e-4, 1e-3, 5e-3}; 80% are +/-1 indels placed in
+homopolymers of length >= 3 (insertion or deletion equally likely), 20% substitutions at random positions. Annotation is lifted
+through the indels; predictions graded with dcf_grade.py definitions (found / correct / exact start). Gene finder run with
+--table auto.
+Predictions (means over the three replicates; drops in percentage points vs e = 0):
+ LR0 e = 0 (blind baseline on an unseen genome): found >= 75% and the auto code call is table 11.
+ LR1 e = 1e-4 (polished assembly): found drop <= 3 points.
+ LR2 e = 1e-3: found drop <= 15 points (mechanism: a single frameshift splits a gene, but one fragment usually still covers
+     >= 50% of it).
+ LR3 e = 5e-3: found drop >= 20 points.
+ LR4 fragmentation: predicted gene count at e = 5e-3 >= 1.3 x the e = 0 count.
+ LR5 the auto code call stays table 11 at every rate and replicate (known weakness: genomes < 2.5 Mb are unprotected).
+ LR6 frameshift-detector calibration at e = 1e-3: recall of simulated indels that fall inside annotated CDS (a reported
+     position within +/- 30 nt counts) lies inside the detector's own printed 95% sensitivity interval (pooled over replicates,
+     compared with the mean of the printed intervals).
+Fixed interpretation: LR1-LR3 pass -> the reader is usable on polished long-read assemblies and degrades as predicted; LR6 pass
+-> the frameshift self-estimate is honest and can be used to flag error-rich assemblies; LR6 fail -> the self-estimate is
+miscalibrated and must be fixed before any long-read claim. Failures stand.

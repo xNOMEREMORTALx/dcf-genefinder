@@ -1,0 +1,37 @@
+PRE-REGISTRATION L4029 (H8 [Visual microphone] x nerve chemistry; Gary 27 Nov 2026: "integration of neurons into visual microphone").
+Can the DCF visual microphone (phone/dcf_visualmic.py, the MotionMeter estimator) see nerve impulses, and what sets the limit?
+Frozen and pushed before any simulation was run. Gary NOMEREMORTAL Mason, Digital Cosmos Framework, 27 November 2026.
+Script: tools_dev/dcf_neurovm_L4029.py. Grader: tools_dev/dcf_grade_L4029.py. Seed 4029. Not for medical use.
+
+Anchor (literature, checked 27 Nov 2026): Ling et al., Light Sci Appl 7:107 (2018): membrane deformation up to 3 nm during the
+action potential in HEK-293 cells (rise ~4 ms), seen by interferometric phase imaging at up to 50,000 fps; electromotility
+~1 nm per 100 mV. (H8 cited this as "PNAS 2018"; corrected here.) Best case used below: 3 nm, treated as IN-PLANE edge motion
+(generous: the real deformation is mostly axial, which a bright-field camera barely sees).
+
+Model.
+ Neurons: single-compartment Hodgkin-Huxley at 20 C (phi = 3^((20-6.3)/10)); variant "HH" (standard K delayed rectifier) and
+ variant "fastK" (K gate rates x4, a Kv3-like fast repolariser; the K+ channel choice read by dcf_nerve). Deformation
+ d(t) = d_peak * (V - V_rest)/(V_peak - V_rest).
+ Camera ("phone on a microscope"): 240 fps; 100 nm of sample per pixel; 120 x 160 textured cell image (the dcf_visualmic
+ self-test texture, 8-bit); sensor noise 2 DN; global shutter with exposure "full" (1/240 s) or "short" (0.25 ms); rolling mode
+ = rows read over 0.9 of the frame period, per-row estimate (MotionMeter.row_shift).
+ Noise of the estimator is CALIBRATED by running the real MotionMeter on synthetic frames; the time series is then
+ exposure-averaged displacement + calibrated Gaussian noise. Detection = matched filter at the known spike time, 1% false-alarm
+ threshold, averaged over random spike phase relative to the frames. Averaging = spike-triggered averaging of N spikes.
+
+Gates (round void if either fails):
+ G1 full-image check: on 400 synthetic frames with a known 0.3-px 7 Hz motion and 2 DN noise, the real pipeline's gain is
+    0.9-1.1 and its residual noise is within 20% of the calibrated sigma.
+ G2 both neuron variants fire; fastK spike half-width < HH half-width.
+Predictions:
+ N1 single spike at 1 nm (global, full exposure): detection probability <= 5%.
+ N2 single-spike 50% detection threshold (global, full exposure) lies between 20 nm and 1000 nm.
+ N3 even with 10,000 averaged spikes (global, full exposure) the 50% threshold is > 3 nm (Ling's maximum stays invisible).
+ N4 full exposure: the recovered spike-triggered waveform half-width is >= 4 ms for BOTH variants (spike shape unresolved).
+ N5 short exposure + spike-triggered equivalent-time averaging (1,000 spikes, amplitude 10x its threshold): the recovered
+    half-width ratio HH/fastK is within 25% of the true ratio (shape, hence K+ channel speed, becomes readable).
+ N6 short exposure: rolling-mode and global-mode single-spike thresholds are within a factor 2 of each other.
+Fixed interpretation: N1 and N3 pass -> a phone camera, even on a microscope, cannot see nerve impulses by motion; the neuron
+path for DCF is (a) interferometric phase-imaging partners and (b) phone-reachable neuron-DRIVEN motion (physiological tremor).
+N5 pass -> design rule: with spike-triggered averaging, exposure time (not frame rate) limits spike-shape resolution.
+Any failure stands and is reported.

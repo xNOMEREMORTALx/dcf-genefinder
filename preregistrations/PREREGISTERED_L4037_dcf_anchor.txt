@@ -1,0 +1,12 @@
+PRE-REGISTRATION L4037 (H5 lead 5 [dcf_anchor tool]): the packaged matched-gene loop-anchor test (dcf_anchor.py) must find a
+planted excess and must NOT be fooled by gene length, where a naive test is. Frozen and pushed before --selftest was ever run.
+Gary NOMEREMORTAL Mason, 27 November 2026. Tool dcf_anchor.py (selftest seed 4037; 20 planted + 100 null replicates; 2,000 sets).
+Synthetic genomes: 6,000 genes on 10 chromosomes; anchor probability = logistic(-1.2 + 0.9 z_length - 0.4 z_density) (longer
+genes are anchored more: the confounder); test set = 60 genes drawn from the long genes (z_length > 1). Planted replicates add
++0.15 to the anchor probability of the 60 genes; null replicates add nothing.
+ A1 power: planted excess detected (matched p_upper < 0.01) in >= 18 of 20 replicates.
+ A2 calibration: matched test p_upper < 0.05 in <= 10 of 100 null replicates (nominal 5).
+ A3 the confounder is real: a naive test against random pool genes gives p < 0.05 in >= 30 of 100 null replicates.
+Real-data reproduction (L4013, waits on the loop files and the GENCODE v49 GTF): dcf_anchor.py must reproduce the frozen L3869
+ten-cell KPORE/KCN results and L3979 (KPORE p_upper 0.0113, T_obs 0.4177) to the printed precision when given the same files,
+seeds and exclusion regex; any mismatch is a tool bug, fixed before release. Failures stand.
