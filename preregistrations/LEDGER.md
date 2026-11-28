@@ -15,3 +15,5 @@
 | preregistrations/PREREGISTERED_L4049_anchor_balance.txt | `ab405479512d707329513a49393e1d13fb202b4ebe7ce2d0ad0e1347f5305ad6` |
 | dcf_anchor.py | `fd28e5b0a9028369dfcd580a3022dbc2b6f669012faf98b58e0dbea3160eb6d1` |
 | tools_dev/dcf_grade_L4037_L4049.py | `5316b00379fa29d635b04c4e1ad2da5b8dc7618fb7363f5a3b7be0e46b83ee75` |
+| preregistrations/PREREGISTERED_L4053_anchor_pool_variance.txt | `14b9ac568e7feb201cf9abdbb8377a730b1b9421d90fa5e8588f13cde7bb48ca` |
+| dcf_anchor.py (L4053) | `d06606a1d5dbc4d44dda3e2382aa143cc8ff53157debbc222cfbc0afe482682d` |

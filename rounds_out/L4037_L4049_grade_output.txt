@@ -1,0 +1,7 @@
+L4037 A1 power 16/20 (>=18) FAIL; A2 false pos 13/100 (<=10) FAIL; A3 naive 99/100 (>=30) PASS -> 1 of 3
+L4049 k50: power 14/20, fp 13/100, gap 0.0740; k10: power 14/20, fp 13/100, gap 0.0224
+B1 -> PASS
+B2 -> FAIL
+B3 -> FAIL
+B4 -> PASS
+RESULT L4049: 2 of 4 pass

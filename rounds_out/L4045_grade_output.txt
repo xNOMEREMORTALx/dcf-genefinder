@@ -1,0 +1,7 @@
+gate cell-edge gain 0.865 -> PASS
+V1 edge single 138.4 nm, 10k 1.270 nm -> FAIL
+V2 edge rolling/global short 0.142 -> PASS
+V3 width ratio recovered 1.099 vs true 1.557 -> FAIL
+V4 full-exposure widths HH 2.201 ms, slowK 2.072 ms -> FAIL
+V5 tremor self-test -> PASS
+RESULT L4045: 2 of 5 pass

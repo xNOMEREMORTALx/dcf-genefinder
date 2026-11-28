@@ -1,0 +1,11 @@
+PRE-REGISTRATION L4053 (follow-up to L4049, 2 of 4: k = 10 shrank the length gap 70% but false positives stayed 13/100).
+New mechanism: tail members share a small pool of distinct controls, so the control pool's own mean carries sampling error the
+resampling null ignores. Correction (frozen now): effective distinct controls D = 1 / sum_j w_j^2 over the candidate table;
+p_upper_adj = normal tail of (obs - null mean) / (null sd * sqrt(1 + m/D)). Frozen and pushed before running.
+Gary NOMEREMORTAL Mason, 27 November 2026. dcf_anchor.py --selftest3 (seed 4053, k = 50, same synthetic design, 20 + 100 reps).
+ C1 the empirical p_upper again over-rejects: false positives >= 8/100.
+ C2 p_upper_adj: false positives <= 8/100.
+ C3 p_upper_adj keeps power: planted detected (p < 0.01) >= 10/20.
+Consequence fixed now: if C2 and C3 pass, dcf_anchor reports p_upper_adj beside p_upper, and Manuscript 3's real-data p-values
+are recomputed with the adjustment as a sensitivity analysis when the files are back (L4013); the frozen numbers are unchanged
+and the adjusted ones are reported beside them, including any that lose significance. Failures stand.
