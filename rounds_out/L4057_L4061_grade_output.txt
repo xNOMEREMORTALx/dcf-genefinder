@@ -1,0 +1,9 @@
+Gate no-free-lunch: Wiener-then-dry minus aware -4.5856 dB -> PASS
+A1 r raw 0.4334 -> Wiener 0.9804 -> PASS
+A2 aware minus dry 6.148 dB -> PASS
+A3 pipe on vs off 40.772 dB, on vs free 29.030 dB -> PASS
+R1 peak 530.11 Hz, corr 0.7145 -> FAIL
+R2 peak 50.0 Hz -> PASS
+R3 peak 1529.82 Hz -> PASS
+R4 peak 1680.2 Hz -> PASS
+RESULT L4057: 3 of 3 pass; RESULT L4061: 3 of 4 pass
