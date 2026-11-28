@@ -1,0 +1,1 @@
+SELFTEST3 k 50 D_eff_mean 765.7 empirical: planted 14/20 false_pos 6/100 | adjusted: planted 15/20 false_pos 8/100
