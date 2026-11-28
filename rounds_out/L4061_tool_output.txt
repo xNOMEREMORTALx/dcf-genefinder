@@ -1,0 +1,6 @@
+DCF L4061 tool output
+R1 f 530 rolling 1 rf_assumed 0.9 rate 28800 peak_hz 530.11 corr_with_truth 0.7145
+R2 f 530 rolling 0 rf_assumed 0.9 rate 240 peak_hz 50.00
+R3 f 1530 rolling 1 rf_assumed 0.9 rate 28800 peak_hz 1529.82
+R4 f 1530 rolling 1 rf_assumed 0.8 rate 28800 peak_hz 1680.20
+END

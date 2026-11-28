@@ -1,0 +1,6 @@
+DCF L4057 tool output
+ROOM rir_taps 1911 direct_delay_ms 6.62 energy_total_over_direct 8.148
+A1 r_raw 0.4334 r_wiener 0.9804
+A2 d_aware 98.2266 d_dry_bestlag 48.4003 d_wiener_then_dry 57.9364 aware_minus_dry_dB 6.148 wiener_minus_aware_dB -4.5856
+A3 f_on 85.75 f_off 171.50 need_on 0.002795 need_off 0.305544 need_free 0.079062 on_vs_off_dB 40.772 on_vs_free_dB 29.030
+END
