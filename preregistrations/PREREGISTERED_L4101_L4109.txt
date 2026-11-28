@@ -1,0 +1,18 @@
+PRE-REGISTRATION L4101, L4105, L4109 (Gary 28 Nov 2026: "Pursue all leads"). Frozen and pushed before running. Gary NOMEREMORTAL Mason.
+Grader tools_dev/dcf_grade_L4101_L4109.py. Failures stand.
+L4101 [Two-tone calibration]: calibrate_row_fraction() now accepts a list of tones (criterion: sum of log tone energies).
+ Four NEW simulated phones (true 0.62, 0.78, 0.88, 0.93; seeds 4101-4104): 2 s video with 530 + 1530 Hz (0.2 px each); the same
+ video calibrated on 1530 Hz alone; and a separate 10 s video with 1530 Hz only.
+ T1 two-tone: |error| <= 0.005 on all four.   T2 10 s one-tone: |error| <= 0.005 on all four.
+ T3 mean |error| two-tone < mean |error| one-tone (same 2 s videos).
+L4105 [Other cyclotomic families]: values Phi_m(10^k)/d, m = 1..12, k = 1..20, d in {1,2,3,4,5,6,7,9,11,13} dividing; seven
+ figurate families (triangular, square, pentagonal, centred triangular, centred square, centred hexagonal, star). Gate: membership
+ tests agree with generated members up to 200,000.
+ C1 (m = 3, d = 3) is centred hexagonal for every k = 1..20 (the proved theorem; a check of the code).
+ C2 apart from (m = 3, d = 3, centred hexagonal) there is NO hit with value > 1000.
+L4109 [Phone corner camera tool]: dcf_corner.py --selftest (seed 4109, 10 synthetic wall photos: two lamps, ambient light,
+ vignetting, 1% noise; flatland geometry as L4081).
+ K1 exact geometry: both lamps found within 1 patch in >= 8 of 10.
+ K2 occluder misplaced by 2 cm: both lamps within 2 patches in >= 6 of 10.
+Interpretation: L4101 pass -> two-tone becomes the recommended calibration (Gary's 530 + 1530 Hz file); L4109 pass -> the tool
+is ready for Gary's photo (vertical edge occluder). Failures stand.

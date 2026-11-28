@@ -176,6 +176,9 @@ def resample_rows(R, fps, row_fraction):
 
 
 def calibrate_row_fraction(R, fps, tone_hz, lo=0.5, hi=1.0, step=0.005, refine=False, criterion="energy"):
+    """tone_hz may be one known tone or a list of known tones (L4101: two-tone calibration = sum of log tone energies)."""
+    if isinstance(tone_hz, (list, tuple)):
+        return _calibrate_multi(R, fps, list(tone_hz), lo, hi, step, refine)
     """L4065: film a KNOWN tone once; the row timing that puts the most energy exactly at the tone is this phone's ROW_FRACTION."""
     best, best_rf = -1.0, None
     for rf in np.arange(lo, hi + 1e-9, step):
@@ -190,6 +193,18 @@ def calibrate_row_fraction(R, fps, tone_hz, lo=0.5, hi=1.0, step=0.005, refine=F
         if v > best: best, best_rf = v, float(rf)
     if refine:                                   # L4085: second pass, +-0.01 around the coarse answer in 0.001 steps
         return calibrate_row_fraction(R, fps, tone_hz, max(lo, best_rf - 0.01), min(hi, best_rf + 0.01), 0.001, False, criterion)
+    return best_rf
+
+
+def _calibrate_multi(R, fps, tones, lo, hi, step, refine):
+    best, best_rf = -1e300, None
+    for rf in np.arange(lo, hi + 1e-9, step):
+        x, rate, _, _ = resample_rows(R, fps, rf); x = clean(x, rate)
+        n = len(x); X = np.abs(np.fft.rfft(x * np.hanning(n)))
+        v = sum(math.log(X[max(int(round(f * n / rate)) - 1, 0):int(round(f * n / rate)) + 2].max() + 1e-30) for f in tones)
+        if v > best: best, best_rf = v, float(rf)
+    if refine:
+        return _calibrate_multi(R, fps, tones, max(lo, best_rf - 0.01), min(hi, best_rf + 0.01), 0.001, False)
     return best_rf
 
 
