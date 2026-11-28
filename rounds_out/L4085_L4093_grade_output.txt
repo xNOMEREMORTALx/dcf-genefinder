@@ -1,0 +1,18 @@
+Q1 star: O 0 E 1.100 interval [0,4]
+Q2 hex: O 10 E 6.337 interval [2,12]
+Q3 tri E 5.630 vs L4001 5.542 (O 8)
+calibration: [(0.6, 0.585, 0.579, -0.015, -0.021), (0.75, 0.73, 0.731, -0.02, -0.019), (0.8, 0.81, 0.807, 0.01, 0.007), (0.9, 0.89, 0.89, -0.01, -0.01)]
+s_min: {(0.01, 1): 3, (0.01, 0): 99, (0.1, 1): 3, (0.1, 0): 99}
+gate True
+B1 -> FAIL
+B2 -> FAIL
+B3 -> PASS
+R1 -> PASS
+R2 -> PASS
+R3 -> PASS
+Q1 -> PASS
+Q2 -> PASS
+Q3 -> PASS
+RESULT L4085: 1 of 3 pass
+RESULT L4089: 3 of 3 pass
+RESULT L4093: 3 of 3 pass

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""dcf_genefinder_mobile.py v2.32 — DCF label-free spectral gene finder, NO Biopython needed (works in Pydroid 3 on Android).
+"""dcf_genefinder_mobile.py v2.33 — DCF label-free spectral gene finder, NO Biopython needed (works in Pydroid 3 on Android).
 Gary NOMEREMORTAL Mason, Digital Cosmos Framework (L2723; algorithm = dcf_genefinder v2: period-3 self-training,
 shadow removal, GC frame-plot seed for GC-rich genomes, anti-Shine-Dalgarno starts from the genome's own 16S rRNA).
 Needs only numpy (Pydroid: Pip menu -> install numpy).
@@ -378,7 +378,7 @@ def _run(path,table='11',out='pred.gff3',mask_rrna=True):
     # L2736-L2739: frameshift candidates (assembly indels / frameshifted pseudogenes / phase-variable genes).
     #   Two rules, thresholds from rate caps on this genome; each rule's sensitivity is self-estimated by planting 100 synthetic
     #   1-nt indels in this genome's own predicted genes; the rule with the higher self-estimate is reported (L2739, pre-registered pass).
-    if len(kept)>=50 and L>=500000:
+    if len(kept)>=50 and L>=100000:   # v2.33 (L4073): frameshift scan from 100 kb; high precision, low recall on small genomes
         import random as _r
         A,B,P,pg=fs_all(F,stops); r27,r28,thr=fs_rules(A,B,P,L)
         S1,t1=fs_inject(F,pg,_r.Random(11),100); A1,B1,P1,_=fs_all(S1,stops); s27,s28,_=fs_rules(A1,B1,P1,len(S1),thr)

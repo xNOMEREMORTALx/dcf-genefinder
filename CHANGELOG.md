@@ -31,3 +31,4 @@
 - Long-read robustness (L4041): no loss at 1e-4 errors, -8 points at 1e-3, -33 at 5e-3; frameshift detector runs only on genomes >= 500 kb.
 - v2.33 release candidate (dev/dcf_genefinder_v2.33dev_smallfs.py): frameshift scan from 100 kb (L4073: calibrated, 6/6 precise, ~4% recall on a 154 kb genome).
 - dcf_visualmic: rolling mode uses a 31-frame median reference and can calibrate ROW_FRACTION from a known tone (L4065).
+- v2.33 adopted (L4085-L4093 report): frameshift scan from 100 kb; gene calls byte-identical to v2.32 on NC_000932 and NC_005816.

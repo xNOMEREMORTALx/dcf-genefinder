@@ -6,7 +6,7 @@
 A label-free, phone-sized prokaryotic gene finder built on the period-3 rhythm of protein-coding DNA. It needs only Python 3 and numpy, and runs on Android (Pydroid 3).
 
 **Author:** Gary NOMEREMORTAL Mason (Digital Cosmos Framework).
-**Version:** 2.32 (L3229; see CHANGELOG).
+**Version:** 2.33 (L4073: frameshift scan now runs on genomes from 100 kb; gene calls unchanged; see CHANGELOG).
 
 ## What it does
 - **Self-training.** Learns a period-3 coding model from the genome itself. No reference genes or training data are used.
