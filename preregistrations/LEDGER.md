@@ -29,3 +29,10 @@
 | tools_dev/dcf_smallfs_L4073.py | `83dc5a61d189d310052a8d5ec9115510f4017d8cbe8c0ab1523ef57496061829` |
 | tools_dev/dcf_periscope_L4081.py | `8f2e1438aa6f6f0b348d7aaf09f97c69dc2ca4b71caf29550d0c357cefb98a31` |
 | tools_dev/dcf_grade_L4065_L4081.py | `6546b3335779933ad99b3e4ff885601fde48c01f15e49a3c5dbccb58ac5804f4` |
+| preregistrations/PREREGISTERED_L4085_L4093.txt | `a642b037aaf8bd74af2dfc6c5da81e0b3f06f52338e1c593bd4e012be7360f7b` |
+| tools_dev/dcf_visualmic.py | `d486ac6f4c8e21d6e97a03fa876e1e79df4678ea48dfea154652e130b227d3a9` |
+| tools_dev/dcf_calib_L4085.py | `a7e39abe0c44cb604868f0710b97c071a957d077ad99cc59de666b33597e6949` |
+| tools_dev/dcf_periscope_res_L4089.py | `903811180a0e4f4a2589bde00de4621928d8898ece63005e3b12a7709916060e` |
+| tools_dev/dcf_figurate_L4093.py | `a7a118a34e8ff7dfba2db9bfb9f31d7e9e96c52c7ef02d94ce8326482daaedce` |
+| tools_dev/dcf_pertri_L4001.py | `fe723d6e1d92595471e2b5a7ebe40ac7c2d36f95de1628c083a33b9a27912e99` |
+| tools_dev/dcf_grade_L4085_L4093.py | `c053a7ed299efa6c2ae979025d6ae14e822da871b55f834defd233060a5b2340` |

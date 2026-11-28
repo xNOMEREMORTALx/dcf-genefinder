@@ -175,7 +175,7 @@ def resample_rows(R, fps, row_fraction):
     return np.interp(grid, tt, vv), rate, grid, mask
 
 
-def calibrate_row_fraction(R, fps, tone_hz, lo=0.5, hi=1.0, step=0.005):
+def calibrate_row_fraction(R, fps, tone_hz, lo=0.5, hi=1.0, step=0.005, refine=False):
     """L4065: film a KNOWN tone once; the row timing that puts the most energy exactly at the tone is this phone's ROW_FRACTION."""
     best, best_rf = -1.0, None
     for rf in np.arange(lo, hi + 1e-9, step):
@@ -183,6 +183,8 @@ def calibrate_row_fraction(R, fps, tone_hz, lo=0.5, hi=1.0, step=0.005):
         n = len(x); X = np.abs(np.fft.rfft(x * np.hanning(n))); k = int(round(tone_hz * n / rate))
         v = X[max(k - 1, 0):k + 2].max()
         if v > best: best, best_rf = v, float(rf)
+    if refine:                                   # L4085: second pass, +-0.01 around the coarse answer in 0.001 steps
+        return calibrate_row_fraction(R, fps, tone_hz, max(lo, best_rf - 0.01), min(hi, best_rf + 0.01), 0.001, False)
     return best_rf
 
 

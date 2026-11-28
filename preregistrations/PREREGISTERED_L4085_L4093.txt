@@ -1,0 +1,18 @@
+PRE-REGISTRATION L4085, L4089, L4093 (Gary 27 Nov 2026: "Pursue leads"). Frozen and pushed before running. Gary NOMEREMORTAL Mason.
+Grader tools_dev/dcf_grade_L4085_L4093.py. Failures stand.
+L4085 [Calibration bias]: calibrate_row_fraction(refine=True) adds a 0.001-step pass within +-0.01 of the coarse answer.
+ Four simulated phones (true row timing 0.60, 0.75, 0.80, 0.90; 1,530 Hz tone; median reference; seeds 4085-4088).
+ B1 refined error <= 0.005 for all four.  B2 |mean refined error| <= 0.003.  B3 refined |error| <= coarse |error| on >= 3 of 4.
+L4089 [Periscopy resolution]: L4081 geometry; two bright patches, weak prior (mean 0, variance 1); "resolved" = two maxima within
+ +-2 patches of the truth with a dip <= 0.75 x the smaller peak; s_min = smallest separation (2..20 patches) resolved in >= 8 of 10
+ draws (99 = never).
+ R1 1% noise, occluder: s_min <= 8.  R2 1% noise, no occluder: s_min > 20.  R3 10% noise, occluder: s_min <= 16.
+L4093 [Grid numbers and periods]: star numbers (Gary's 11 x 11 grid: 121 = S_5) and centred hexagonal numbers (61 = H_5) among the
+ numbers with exact reciprocal period n = 25..40 (L4001 sets). Null P(d in family) = c(d mod 360360)/(dF/dn), c = exact residue counts.
+ Gate: each membership test agrees with brute force up to 2,000,000 (else void).
+ Q1 star: pooled observed count inside the central 95% Poisson interval of pooled E.
+ Q2 centred hexagonal: same.
+ Q3 triangular (the same new null applied to L4001's question): pooled E within 0.5x-2x of L4001's E = 5.542 (two independent
+    null constructions agree).
+ Descriptive: periods 16 and 24.
+ Interpretation: Q1-Q2 pass -> 121/61-type grid numbers show no period affinity beyond density; they stay [D].
