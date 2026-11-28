@@ -1,0 +1,6 @@
+DCF L4101 tool output
+CAL rf_true 0.62 two_tone_2s 0.6390 one_tone_2s 0.6390 one_tone_10s 0.6390 err_two +0.0190 err_one +0.0190 err_long +0.0190
+CAL rf_true 0.78 two_tone_2s 0.8070 one_tone_2s 0.7990 one_tone_10s 0.7990 err_two +0.0270 err_one +0.0190 err_long +0.0190
+CAL rf_true 0.88 two_tone_2s 0.8820 one_tone_2s 0.8730 one_tone_10s 0.8730 err_two +0.0020 err_one -0.0070 err_long -0.0070
+CAL rf_true 0.93 two_tone_2s 0.9500 one_tone_2s 0.9500 one_tone_10s 0.9500 err_two +0.0200 err_one +0.0200 err_long +0.0200
+END

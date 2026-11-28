@@ -1,0 +1,75 @@
+DCF L4105 tool output
+GATE triangular membership_ok 1
+GATE square membership_ok 1
+GATE pentagonal membership_ok 1
+GATE centred_triangular membership_ok 1
+GATE centred_square membership_ok 1
+GATE centred_hexagonal membership_ok 1
+GATE star membership_ok 1
+HIT m 1 k 1 d 1 family square value 9 big 0
+HIT m 1 k 1 d 3 family triangular value 3 big 0
+HIT m 1 k 1 d 9 family triangular value 1 big 0
+HIT m 1 k 1 d 9 family square value 1 big 0
+HIT m 1 k 1 d 9 family pentagonal value 1 big 0
+HIT m 1 k 1 d 9 family centred_triangular value 1 big 0
+HIT m 1 k 1 d 9 family centred_square value 1 big 0
+HIT m 1 k 1 d 9 family centred_hexagonal value 1 big 0
+HIT m 1 k 1 d 9 family star value 1 big 0
+HIT m 1 k 2 d 11 family square value 9 big 0
+HIT m 2 k 1 d 11 family triangular value 1 big 0
+HIT m 2 k 1 d 11 family square value 1 big 0
+HIT m 2 k 1 d 11 family pentagonal value 1 big 0
+HIT m 2 k 1 d 11 family centred_triangular value 1 big 0
+HIT m 2 k 1 d 11 family centred_square value 1 big 0
+HIT m 2 k 1 d 11 family centred_hexagonal value 1 big 0
+HIT m 2 k 1 d 11 family star value 1 big 0
+HIT m 2 k 3 d 1 family pentagonal value 1001 big 1
+HIT m 2 k 3 d 11 family triangular value 91 big 0
+HIT m 2 k 3 d 11 family centred_hexagonal value 91 big 0
+HIT m 3 k 1 d 3 family centred_hexagonal value 37 big 0
+HIT m 3 k 1 d 3 family star value 37 big 0
+HIT m 3 k 2 d 3 family centred_hexagonal value 3367 big 1
+HIT m 3 k 3 d 3 family centred_hexagonal value 333667 big 1
+HIT m 3 k 4 d 3 family centred_hexagonal value 33336667 big 1
+HIT m 3 k 5 d 3 family centred_hexagonal value 3333366667 big 1
+HIT m 3 k 6 d 3 family centred_hexagonal value 333333666667 big 1
+HIT m 3 k 7 d 3 family centred_hexagonal value 33333336...(14 digits) big 1
+HIT m 3 k 8 d 3 family centred_hexagonal value 33333333...(16 digits) big 1
+HIT m 3 k 9 d 3 family centred_hexagonal value 33333333...(18 digits) big 1
+HIT m 3 k 10 d 3 family centred_hexagonal value 33333333...(20 digits) big 1
+HIT m 3 k 11 d 3 family centred_hexagonal value 33333333...(22 digits) big 1
+HIT m 3 k 12 d 3 family centred_hexagonal value 33333333...(24 digits) big 1
+HIT m 3 k 13 d 3 family centred_hexagonal value 33333333...(26 digits) big 1
+HIT m 3 k 14 d 3 family centred_hexagonal value 33333333...(28 digits) big 1
+HIT m 3 k 15 d 3 family centred_hexagonal value 33333333...(30 digits) big 1
+HIT m 3 k 16 d 3 family centred_hexagonal value 33333333...(32 digits) big 1
+HIT m 3 k 17 d 3 family centred_hexagonal value 33333333...(34 digits) big 1
+HIT m 3 k 18 d 3 family centred_hexagonal value 33333333...(36 digits) big 1
+HIT m 3 k 19 d 3 family centred_hexagonal value 33333333...(38 digits) big 1
+HIT m 3 k 20 d 3 family centred_hexagonal value 33333333...(40 digits) big 1
+HIT m 6 k 1 d 1 family triangular value 91 big 0
+HIT m 6 k 1 d 1 family centred_hexagonal value 91 big 0
+HIT m 6 k 1 d 7 family centred_square value 13 big 0
+HIT m 6 k 1 d 7 family star value 13 big 0
+HIT m 6 k 1 d 13 family centred_hexagonal value 7 big 0
+HIT m 9 k 1 d 3 family centred_hexagonal value 333667 big 1
+HIT m 9 k 2 d 3 family centred_hexagonal value 333333666667 big 1
+HIT m 9 k 3 d 3 family centred_hexagonal value 33333333...(18 digits) big 1
+HIT m 9 k 4 d 3 family centred_hexagonal value 33333333...(24 digits) big 1
+HIT m 9 k 5 d 3 family centred_hexagonal value 33333333...(30 digits) big 1
+HIT m 9 k 6 d 3 family centred_hexagonal value 33333333...(36 digits) big 1
+HIT m 9 k 7 d 3 family centred_hexagonal value 33333333...(42 digits) big 1
+HIT m 9 k 8 d 3 family centred_hexagonal value 33333333...(48 digits) big 1
+HIT m 9 k 9 d 3 family centred_hexagonal value 33333333...(54 digits) big 1
+HIT m 9 k 10 d 3 family centred_hexagonal value 33333333...(60 digits) big 1
+HIT m 9 k 11 d 3 family centred_hexagonal value 33333333...(66 digits) big 1
+HIT m 9 k 12 d 3 family centred_hexagonal value 33333333...(72 digits) big 1
+HIT m 9 k 13 d 3 family centred_hexagonal value 33333333...(78 digits) big 1
+HIT m 9 k 14 d 3 family centred_hexagonal value 33333333...(84 digits) big 1
+HIT m 9 k 15 d 3 family centred_hexagonal value 33333333...(90 digits) big 1
+HIT m 9 k 16 d 3 family centred_hexagonal value 33333333...(96 digits) big 1
+HIT m 9 k 17 d 3 family centred_hexagonal value 33333333...(102 digits) big 1
+HIT m 9 k 18 d 3 family centred_hexagonal value 33333333...(108 digits) big 1
+HIT m 9 k 19 d 3 family centred_hexagonal value 33333333...(114 digits) big 1
+HIT m 9 k 20 d 3 family centred_hexagonal value 33333333...(120 digits) big 1
+END

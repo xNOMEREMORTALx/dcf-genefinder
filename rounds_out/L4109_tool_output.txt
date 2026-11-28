@@ -1,0 +1,1 @@
+SELFTEST corner lamps_found_exact_geometry 9/10 lamps_found_occluder_off_2cm 5/10
