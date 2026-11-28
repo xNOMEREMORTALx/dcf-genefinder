@@ -24,3 +24,8 @@
 - **v2.25 (L2957):** tiny AT-rich genomes (< 300 kb, GC < 0.25) use the length ratio at a 1.45 cut for TGA = Trp.
 - **v2.24 (L2921):** dispersed-repeat flag. **Fixes a strand bug** in the v2.22–v2.23 codon-phase strength line.
 - **Labelling correction (L2973):** *M. genitalium* NC_000908 and *Deinococcus* NC_001263 had been used in development and were wrongly counted as unseen in blind set 2. Every new genome is now checked against `seen_accessions.txt`.
+
+## 27 Nov 2026 (rounds L4029-L4053)
+- dcf_anchor.py (new): matched-gene loop-anchor test (Manuscript 3 machinery) with balance and effective-control diagnostics, --selftest/--selftest2/--selftest3. Self-test shows ~2x over-rejection on tail gene sets; calibrate on real data before use.
+- tools_dev/dcf_visualmic.py: tremor mode (3-15 Hz); phone bundle 6.21 menu 38 in dcf-math.
+- Long-read robustness (L4041): no loss at 1e-4 errors, -8 points at 1e-3, -33 at 5e-3; frameshift detector runs only on genomes >= 500 kb.
