@@ -114,13 +114,13 @@ def naive_test(Hm, members, pool, nsets=10000, seed=4037):
     return (1 + (null >= obs).sum()) / (nsets + 1)
 
 # ---------------- synthetic self-test (L4037) ----------------
-def synthetic(rng, n_genes=6000, n_chr=10):
+def synthetic(rng, n_genes=6000, n_chr=10, b_len=0.9):
     chrom = rng.integers(0, n_chr, n_genes)
     pos = rng.random(n_genes) * 1.5e8
     length = 10 ** rng.normal(4.3, 0.5, n_genes)
     G = [('chr%d' % (c + 1), int(p), int(L), 'G%d' % i) for i, (c, p, L) in enumerate(zip(chrom, pos, length))]
     zl, zd = covariates(G)
-    base = 1 / (1 + np.exp(-(-1.2 + 0.9 * zl - 0.4 * zd)))       # anchor probability rises with length (the confounder)
+    base = 1 / (1 + np.exp(-(-1.2 + b_len * zl - 0.4 * zd)))     # anchor probability vs length (the confounder; L4069: b_len < 0 = real direction)
     return G, zl, zd, base
 
 def selftest(reps_power=20, reps_null=100, nsets=2000):
@@ -181,9 +181,20 @@ def selftest3(seed=4053, reps_power=20, reps_null=100, nsets=2000, k=50):
     print("SELFTEST3 k %d D_eff_mean %.1f empirical: planted %d/%d false_pos %d/%d | adjusted: planted %d/%d false_pos %d/%d"
           % (k, float(np.mean(D)), pw[0], reps_power, fp[0], reps_null, pw[1], reps_power, fp[1], reps_null))
 
+def selftest4(seed=4069, reps_null=200, nsets=2000, k=50):
+    """L4069: realistic confounder direction (longer genes sit at anchors LESS, as L3853 found); null replicates only."""
+    rng = np.random.default_rng(seed); fu = fl = 0; gaps = []
+    for r in range(reps_null):
+        G, zl, zd, base = synthetic(rng, b_len=-0.9)
+        members = rng.choice(np.where(zl > 1.0)[0], 60, replace=False)
+        H = (rng.random(len(G)) < base).astype(float); pool = np.setdiff1d(np.arange(len(G)), members)
+        res = matched_test(H, members, pool, zl, zd, nsets=nsets, seed=int(rng.integers(1 << 30)), k=k)
+        fu += res['p_upper'] < 0.05; fl += res['p_lower'] < 0.05; gaps.append(res['balance'][0])
+    print("SELFTEST4 k %d null_reps %d false_pos_upper %d false_pos_lower %d mean_zlength_gap %.4f" % (k, reps_null, fu, fl, float(np.mean(gaps))))
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('--selftest', action='store_true'); ap.add_argument('--selftest2', action='store_true'); ap.add_argument('--selftest3', action='store_true'); ap.add_argument('--k', type=int, default=50)
+    ap.add_argument('--selftest', action='store_true'); ap.add_argument('--selftest2', action='store_true'); ap.add_argument('--selftest3', action='store_true'); ap.add_argument('--selftest4', action='store_true'); ap.add_argument('--k', type=int, default=50)
     ap.add_argument('--gtf'); ap.add_argument('--genes'); ap.add_argument('--genes-file'); ap.add_argument('--regex')
     ap.add_argument('--loops', nargs='+'); ap.add_argument('--format', default='top', choices=['top', '4dn', 'all'])
     ap.add_argument('--ref', nargs='*'); ap.add_argument('--mode', choices=['both', 'none'])
@@ -195,6 +206,8 @@ def main():
         selftest2(); return
     if a.selftest3:
         selftest3(); return
+    if a.selftest4:
+        selftest4(); return
     G = gene_table(a.gtf); names = [g[3] for g in G]; zl, zd = covariates(G)
     if a.regex: want = {n for n in names if re.match(a.regex, n)}
     else:

@@ -21,3 +21,11 @@
 | tools_dev/dcf_envfilter_L4057.py | `93e90b86d3fd1cd96c1311d1f9af8975843eb1c8b302ed5f160338e79efb45d7` |
 | tools_dev/dcf_subframe_L4061.py | `7abd50010625230c7986e423a45aa18830b32aa8e130a8029ce779bcccd2a28d` |
 | tools_dev/dcf_grade_L4057_L4061.py | `7cc13321f47c5f5a0c9a71bcafa4229fb8fa0d3859f847080f3d2c3c2cdb1bea` |
+| preregistrations/PREREGISTERED_L4065_L4081.txt | `e6caa6372876f777430bc1de36dbb365e40b66a78a866473d44d0ffed890789c` |
+| tools_dev/dcf_visualmic.py | `e773cf70be0794f0e8b910605a1a874dd309971c3af3ee20e6d4c6ce1ee4ffd6` |
+| tools_dev/dcf_rolling_L4065.py | `fcfc764ee52b60a909f8a4c0eea8f5f4eb816859ce9f1e11399b1bb668d07bd4` |
+| dcf_anchor.py | `4881369571ab872fe64297939e4ac3d9bc4fcbe92cc7509108a59c123ec80ddb` |
+| dev/dcf_genefinder_v2.33dev_smallfs.py | `6f49492b4975c2662ba7d2c2054a800916708c63c8b731d24ab29cd24db6f102` |
+| tools_dev/dcf_smallfs_L4073.py | `83dc5a61d189d310052a8d5ec9115510f4017d8cbe8c0ab1523ef57496061829` |
+| tools_dev/dcf_periscope_L4081.py | `8f2e1438aa6f6f0b348d7aaf09f97c69dc2ca4b71caf29550d0c357cefb98a31` |
+| tools_dev/dcf_grade_L4065_L4081.py | `6546b3335779933ad99b3e4ff885601fde48c01f15e49a3c5dbccb58ac5804f4` |

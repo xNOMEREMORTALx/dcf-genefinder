@@ -42,6 +42,7 @@ MAX_WIDTH = 320           # frames are shrunk to this width for speed
 MAX_FRAMES = 4000         # stop after this many frames
 ROLLING = False           # experimental rolling-shutter mode
 ROW_FRACTION = 0.9        # fraction of the frame period spent reading rows (rolling mode)
+REF_FRAMES = 1            # L4065: >1 = reference is the median of the first REF_FRAMES frames (removes rolling skew of frame 0)
 # ===========================================================================
 
 TREMOR_BAND = (3.0, 15.0)  # Hz searched in tremor mode
@@ -145,28 +146,63 @@ def synthetic_frames(freq, fps, seconds=2.0, amp_px=0.15, size=(120, 160), seed=
         yield (img * 255).astype(np.uint8)
 
 
+def rolling_rows(frames):
+    """Per-row sideways shift of every frame (frames x rows), against a median reference when REF_FRAMES > 1."""
+    buf, meter, rows = [], None, []
+    for fr in frames:
+        g = to_gray_small(fr)
+        if meter is None:
+            buf.append(g)
+            if len(buf) < REF_FRAMES: continue
+            meter = MotionMeter(np.median(np.array(buf), axis=0) if REF_FRAMES > 1 else buf[0])
+            for b in buf: rows.append(meter.row_shift(b))
+            continue
+        rows.append(meter.row_shift(g))
+    if meter is None:
+        sys.exit("No frames read.")
+    return np.array(rows)
+
+
+def resample_rows(R, fps, row_fraction):
+    """Place every row sample at its own capture time and resample evenly. Returns signal, rate, grid, in-readout mask."""
+    n_f, n_r = R.shape
+    t = (np.arange(n_f)[:, None] + row_fraction * np.arange(n_r)[None, :] / n_r) / fps
+    order = np.argsort(t.ravel()); tt, vv = t.ravel()[order], R.ravel()[order]
+    rate = min(fps * n_r, 48000)
+    grid = np.arange(tt[0], tt[-1], 1.0 / rate)
+    mask = ((grid * fps) % 1.0) <= row_fraction          # False inside the dead time between frames (interpolated, not measured)
+    return np.interp(grid, tt, vv), rate, grid, mask
+
+
+def calibrate_row_fraction(R, fps, tone_hz, lo=0.5, hi=1.0, step=0.005):
+    """L4065: film a KNOWN tone once; the row timing that puts the most energy exactly at the tone is this phone's ROW_FRACTION."""
+    best, best_rf = -1.0, None
+    for rf in np.arange(lo, hi + 1e-9, step):
+        x, rate, _, _ = resample_rows(R, fps, rf); x = clean(x, rate)
+        n = len(x); X = np.abs(np.fft.rfft(x * np.hanning(n))); k = int(round(tone_hz * n / rate))
+        v = X[max(k - 1, 0):k + 2].max()
+        if v > best: best, best_rf = v, float(rf)
+    return best_rf
+
+
+LAST_ROLL = None
+
+
 def measure(frames):
-    meter, sig, rows = None, [], []
+    global LAST_ROLL
+    if ROLLING:
+        R = rolling_rows(frames)
+        x, rate, grid, mask = resample_rows(R, CAPTURE_FPS, ROW_FRACTION)
+        LAST_ROLL = (grid, mask)
+        return x, rate
+    meter, sig = None, []
     for fr in frames:
         g = to_gray_small(fr)
         if meter is None:
             meter = MotionMeter(g)
-        if ROLLING:
-            rows.append(meter.row_shift(g))
-        else:
-            sig.append(meter.shift(g))
+        sig.append(meter.shift(g))
     if meter is None:
         sys.exit("No frames read.")
-    if ROLLING:
-        R = np.array(rows)                        # frames x rows
-        n_f, n_r = R.shape
-        t = (np.arange(n_f)[:, None] + ROW_FRACTION * np.arange(n_r)[None, :] / n_r) / CAPTURE_FPS
-        order = np.argsort(t.ravel())
-        tt, vv = t.ravel()[order], R.ravel()[order]
-        rate = CAPTURE_FPS * n_r                   # uneven sampling -> resample evenly
-        rate = min(rate, 48000)
-        grid = np.arange(tt[0], tt[-1], 1.0 / rate)
-        return np.interp(grid, tt, vv), rate
     S = np.array(sig)                              # frames x 2 (dx, dy)
     S = S - S.mean(axis=0)
     u, s, vt = np.linalg.svd(S, full_matrices=False)   # main direction of vibration

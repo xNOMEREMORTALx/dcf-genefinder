@@ -1,0 +1,39 @@
+PRE-REGISTRATION L4065, L4069, L4073, L4081 (Gary 27 Nov 2026: "Pursue leads"). Frozen and pushed before any of them was run.
+Gary NOMEREMORTAL Mason. Grader tools_dev/dcf_grade_L4065_L4081.py. Failures stand.
+
+L4065 [Rolling calibration] + [Rolling waveform fix]. tools_dev/dcf_rolling_L4065.py with dcf_visualmic.py changes: REF_FRAMES
+(median reference), resample_rows() with an in-readout mask (dead time between frames excluded), calibrate_row_fraction() (scan
+0.50-1.00 in 0.005 steps, pick the row timing that puts most spectral energy at a KNOWN tone). Synthetic video as L4061.
+ K1 true row timing 0.90, 1,530 Hz tone: calibrated value within +-0.02.
+ K2 true row timing 0.75 (another phone), 1,530 Hz: calibrated within +-0.02.
+ K3 a second video from the K2 phone, unknown 1,130 Hz tone, analysed with K2's calibration: peak within +-3 Hz.
+ W1 530 Hz: median reference (31 frames) + dead-time mask -> waveform correlation >= 0.80 (L4061 got 0.71).
+ W2 attribution: single-frame reference with the mask stays < 0.80 (the reference skew, not the gap, was the main loss).
+
+L4069 [Anchor over-rejection mechanism]. dcf_anchor.py --selftest4: L4037 design but the confounder runs the REAL way (longer
+genes at anchors LESS, coefficient -0.9; L3853); 200 null replicates, k = 50, 2,000 sets.
+ D1 p_upper false positives <= 10/200 (in the real direction the residual mismatch works AGAINST finding an excess).
+ D2 p_lower false positives >= 16/200 (it leaks into the deficit side instead).
+ D3 members remain longer than their controls: mean z-length gap >= 0.05.
+ Interpretation: D1-D3 pass -> the residual length mismatch is the mechanism, and in real data it makes Manuscript 3's EXCESS
+ p-values conservative (deficit p-values anti-conservative). D1 fails -> over-rejection is direction-independent: Manuscript 3
+ p-values must be calibrated by placebo families before any further claim.
+
+L4073 [Frameshift detector for small genomes]. dev/dcf_genefinder_v2.33dev_smallfs.py = v2.32 with ONE change: the frameshift
+scan runs from 100 kb (was 500 kb). tools_dev/dcf_smallfs_L4073.py: NC_000932 (as L4041), error rate 1e-3 (3 seeds) and 0.
+Matching tolerance +-150 nt (the detector's own definition).
+ F1 gate: the scan runs on all four genomes.
+ F2 calibration: pooled recall of simulated indels inside annotated CDS lies inside the mean printed 95% interval.
+ F3 precision: >= 50% of reported positions at 1e-3 lie within 150 nt of a simulated error (pooled).
+ F4 on the error-free genome it reports <= 5 candidates.
+ Interpretation: F2-F4 pass -> lower the limit in v2.33 (release candidate); else keep 500 kb and report why.
+
+L4081 [Penumbra periscopy]. tools_dev/dcf_periscope_L4081.py: 2-D flatland, hidden scene of 48 patches on y = 2 (x -1..1),
+diffuse wall of 200 pixels on y = 0 (x 0..2), optional opaque occluder on y = 1 (x 0.20-0.35); cosine/r^2 transport; Gaussian-
+prior (MAP) reconstruction; 50 random piecewise-constant scenes per condition; noise 1% and 10% of the mean wall signal.
+ P1 the occluder lowers the transport matrix condition number by >= 100x.
+ P2 at 1% noise the occluder lowers mean reconstruction error by >= 2x.
+ P3 at 1% noise with the occluder, mean relative error < 0.5.
+ P4 at 10% noise the occluder still helps by >= 1.5x.
+ Interpretation: P1-P4 pass -> reproduces the 2019 ordinary-camera result in simulation (occluder makes the wall a camera);
+ next step is a phone test with a chair as occluder.
